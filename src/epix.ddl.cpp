@@ -1841,13 +1841,28 @@ uint32_t Config100aV2::version() const {
 }
 
 
-uint32_t Config100aV2::runTrigDelay() const {
-  return m_xtcObj->runTrigDelay();
+uint32_t Config100aV2::usePgpEvr() const {
+  return m_xtcObj->usePgpEvr();
 }
 
 
-uint32_t Config100aV2::daqTrigDelay() const {
-  return m_xtcObj->daqTrigDelay();
+uint32_t Config100aV2::evrRunCode() const {
+  return m_xtcObj->evrRunCode();
+}
+
+
+uint32_t Config100aV2::evrDaqCode() const {
+  return m_xtcObj->evrDaqCode();
+}
+
+
+uint32_t Config100aV2::evrRunTrigDelay() const {
+  return m_xtcObj->evrRunTrigDelay();
+}
+
+
+uint32_t Config100aV2::epixRunTrigDelay() const {
+  return m_xtcObj->epixRunTrigDelay();
 }
 
 
@@ -1988,6 +2003,26 @@ uint32_t Config100aV2::asicR0Width() const {
 
 uint32_t Config100aV2::adcPipelineDelay() const {
   return m_xtcObj->adcPipelineDelay();
+}
+
+
+uint32_t Config100aV2::adcPipelineDelay0() const {
+  return m_xtcObj->adcPipelineDelay0();
+}
+
+
+uint32_t Config100aV2::adcPipelineDelay1() const {
+  return m_xtcObj->adcPipelineDelay1();
+}
+
+
+uint32_t Config100aV2::adcPipelineDelay2() const {
+  return m_xtcObj->adcPipelineDelay2();
+}
+
+
+uint32_t Config100aV2::adcPipelineDelay3() const {
+  return m_xtcObj->adcPipelineDelay3();
 }
 
 
@@ -2354,5 +2389,85 @@ uint32_t ElementV2<Config>::lastWord() const {
 
 template class ElementV2<Pds::Epix::Config100aV1>;
 template class ElementV2<Pds::Epix::Config100aV2>;
+template <typename Config>
+ElementV3<Config>::ElementV3(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
+  : Psana::Epix::ElementV3()
+  , m_xtcObj(xtcPtr)
+  , m_cfgPtr(cfgPtr)
+{
+}
+template <typename Config>
+ElementV3<Config>::~ElementV3()
+{
+}
+
+
+template <typename Config>
+uint8_t ElementV3<Config>::vc() const {
+  return m_xtcObj->vc();
+}
+
+
+template <typename Config>
+uint8_t ElementV3<Config>::lane() const {
+  return m_xtcObj->lane();
+}
+
+
+template <typename Config>
+uint16_t ElementV3<Config>::acqCount() const {
+  return m_xtcObj->acqCount();
+}
+
+
+template <typename Config>
+uint32_t ElementV3<Config>::frameNumber() const {
+  return m_xtcObj->frameNumber();
+}
+
+
+template <typename Config>
+uint32_t ElementV3<Config>::ticks() const {
+  return m_xtcObj->ticks();
+}
+
+
+template <typename Config>
+uint32_t ElementV3<Config>::fiducials() const {
+  return m_xtcObj->fiducials();
+}
+
+
+template <typename Config>
+ndarray<const uint16_t, 2> ElementV3<Config>::frame() const {
+  return m_xtcObj->frame(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const uint16_t, 2> ElementV3<Config>::calibrationRows() const {
+  return m_xtcObj->calibrationRows(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const uint32_t, 2> ElementV3<Config>::environmentalRows() const {
+  return m_xtcObj->environmentalRows(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const uint16_t, 1> ElementV3<Config>::temperatures() const {
+  return m_xtcObj->temperatures(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+uint32_t ElementV3<Config>::lastWord() const {
+  return m_xtcObj->lastWord(*m_cfgPtr);
+}
+
+template class ElementV3<Pds::Epix::Config100aV1>;
+template class ElementV3<Pds::Epix::Config100aV2>;
 } // namespace Epix
 } // namespace psddl_pds2psana

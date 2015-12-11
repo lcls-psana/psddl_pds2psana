@@ -439,8 +439,11 @@ public:
   Config100aV2(const boost::shared_ptr<const XtcType>& xtcPtr);
   virtual ~Config100aV2();
   virtual uint32_t version() const;
-  virtual uint32_t runTrigDelay() const;
-  virtual uint32_t daqTrigDelay() const;
+  virtual uint32_t usePgpEvr() const;
+  virtual uint32_t evrRunCode() const;
+  virtual uint32_t evrDaqCode() const;
+  virtual uint32_t evrRunTrigDelay() const;
+  virtual uint32_t epixRunTrigDelay() const;
   virtual uint32_t dacSetting() const;
   virtual uint8_t asicGR() const;
   virtual uint8_t asicAcq() const;
@@ -469,6 +472,10 @@ public:
   virtual uint32_t adcClkHalfT() const;
   virtual uint32_t asicR0Width() const;
   virtual uint32_t adcPipelineDelay() const;
+  virtual uint32_t adcPipelineDelay0() const;
+  virtual uint32_t adcPipelineDelay1() const;
+  virtual uint32_t adcPipelineDelay2() const;
+  virtual uint32_t adcPipelineDelay3() const;
   virtual uint16_t SyncWidth() const;
   virtual uint16_t SyncDelay() const;
   virtual uint32_t prepulseR0Width() const;
@@ -558,6 +565,31 @@ public:
   virtual ndarray<const uint16_t, 2> frame() const;
   virtual ndarray<const uint16_t, 2> calibrationRows() const;
   virtual ndarray<const uint16_t, 2> environmentalRows() const;
+  virtual ndarray<const uint16_t, 1> temperatures() const;
+  virtual uint32_t lastWord() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  boost::shared_ptr<const Config> m_cfgPtr;
+};
+
+
+template <typename Config>
+class ElementV3 : public Psana::Epix::ElementV3 {
+public:
+  typedef Pds::Epix::ElementV3 XtcType;
+  typedef Psana::Epix::ElementV3 PsanaType;
+  ElementV3(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr);
+  virtual ~ElementV3();
+  virtual uint8_t vc() const;
+  virtual uint8_t lane() const;
+  virtual uint16_t acqCount() const;
+  virtual uint32_t frameNumber() const;
+  virtual uint32_t ticks() const;
+  virtual uint32_t fiducials() const;
+  virtual ndarray<const uint16_t, 2> frame() const;
+  virtual ndarray<const uint16_t, 2> calibrationRows() const;
+  virtual ndarray<const uint32_t, 2> environmentalRows() const;
   virtual ndarray<const uint16_t, 1> temperatures() const;
   virtual uint32_t lastWord() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
