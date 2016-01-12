@@ -11,6 +11,13 @@ Package author: Andrei Salnikov
 Please describe any modifications that you made to the package in the
 reverse time order.
 
+Tag: V00-09-25
+2016-1-12 David Schneider
+- generate code from new psddl with safe access to cspad quads, epix asics, pnccd frames, 
+  and acqiris data elements. This generates the usual STL std::vector bounds error exception 
+  on the C++ side, and Boost::Python propogates this to a IndexError exception on the 
+  Python side. JIRA PSAS-208
+
 Tag: V00-09-24
 2015-12-10 David Schneider
 - update to pdsdata 8.4.5 with modified Epix::Config100aV2, and Epix::ElementV3 JIRA PSAS-198

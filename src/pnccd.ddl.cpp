@@ -203,7 +203,7 @@ FramesV1<Config>::~FramesV1()
 }
 
 template <typename Config>
-const Psana::PNCCD::FrameV1& FramesV1<Config>::frame(uint32_t i0) const { return _frames[i0]; }
+const Psana::PNCCD::FrameV1& FramesV1<Config>::frame(uint32_t i0) const { return _frames.at(i0); }
 
 template <typename Config>
 uint32_t FramesV1<Config>::numLinks() const {

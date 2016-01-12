@@ -169,7 +169,7 @@ DataDescV1<Config>::~DataDescV1()
 }
 
 template <typename Config>
-const Psana::Acqiris::DataDescV1Elem& DataDescV1<Config>::data(uint32_t i0) const { return _data[i0]; }
+const Psana::Acqiris::DataDescV1Elem& DataDescV1<Config>::data(uint32_t i0) const { return _data.at(i0); }
 template <typename Config>
 std::vector<int> DataDescV1<Config>::data_shape() const
 {

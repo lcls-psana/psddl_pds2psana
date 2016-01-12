@@ -395,7 +395,7 @@ uint32_t ConfigV1::quadMask() const {
   return m_xtcObj->quadMask();
 }
 
-const Psana::CsPad::ConfigV1QuadReg& ConfigV1::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ConfigV1QuadReg& ConfigV1::quads(uint32_t i0) const { return _quads.at(i0); }
 
 uint32_t ConfigV1::numAsicsRead() const {
   return m_xtcObj->numAsicsRead();
@@ -497,7 +497,7 @@ uint32_t ConfigV2::roiMasks() const {
   return m_xtcObj->roiMasks();
 }
 
-const Psana::CsPad::ConfigV1QuadReg& ConfigV2::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ConfigV1QuadReg& ConfigV2::quads(uint32_t i0) const { return _quads.at(i0); }
 
 uint32_t ConfigV2::numAsicsRead() const {
   return m_xtcObj->numAsicsRead();
@@ -625,7 +625,7 @@ uint32_t ConfigV3::roiMasks() const {
   return m_xtcObj->roiMasks();
 }
 
-const Psana::CsPad::ConfigV1QuadReg& ConfigV3::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ConfigV1QuadReg& ConfigV3::quads(uint32_t i0) const { return _quads.at(i0); }
 
 uint32_t ConfigV3::numAsicsRead() const {
   return m_xtcObj->numAsicsRead();
@@ -753,7 +753,7 @@ uint32_t ConfigV4::roiMasks() const {
   return m_xtcObj->roiMasks();
 }
 
-const Psana::CsPad::ConfigV2QuadReg& ConfigV4::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ConfigV2QuadReg& ConfigV4::quads(uint32_t i0) const { return _quads.at(i0); }
 
 uint32_t ConfigV4::numAsicsRead() const {
   return m_xtcObj->numAsicsRead();
@@ -886,7 +886,7 @@ uint32_t ConfigV5::roiMasks() const {
   return m_xtcObj->roiMasks();
 }
 
-const Psana::CsPad::ConfigV3QuadReg& ConfigV5::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ConfigV3QuadReg& ConfigV5::quads(uint32_t i0) const { return _quads.at(i0); }
 
 uint32_t ConfigV5::numAsicsRead() const {
   return m_xtcObj->numAsicsRead();
@@ -1043,7 +1043,7 @@ DataV1<Config>::~DataV1()
 }
 
 template <typename Config>
-const Psana::CsPad::ElementV1& DataV1<Config>::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ElementV1& DataV1<Config>::quads(uint32_t i0) const { return _quads.at(i0); }
 template <typename Config>
 std::vector<int> DataV1<Config>::quads_shape() const
 {
@@ -1180,7 +1180,7 @@ DataV2<Config>::~DataV2()
 }
 
 template <typename Config>
-const Psana::CsPad::ElementV2& DataV2<Config>::quads(uint32_t i0) const { return _quads[i0]; }
+const Psana::CsPad::ElementV2& DataV2<Config>::quads(uint32_t i0) const { return _quads.at(i0); }
 template <typename Config>
 std::vector<int> DataV2<Config>::quads_shape() const
 {

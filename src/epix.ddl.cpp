@@ -466,7 +466,7 @@ uint32_t ConfigV1::asicMask() const {
   return m_xtcObj->asicMask();
 }
 
-const Psana::Epix::AsicConfigV1& ConfigV1::asics(uint32_t i0) const { return _asics[i0]; }
+const Psana::Epix::AsicConfigV1& ConfigV1::asics(uint32_t i0) const { return _asics.at(i0); }
 
 ndarray<const uint32_t, 3> ConfigV1::asicPixelTestArray() const {
   return m_xtcObj->asicPixelTestArray(m_xtcObj);
@@ -1122,7 +1122,7 @@ uint8_t Config10KV1::scopeChanBwaveformSelect() const {
   return m_xtcObj->scopeChanBwaveformSelect();
 }
 
-const Psana::Epix::Asic10kConfigV1& Config10KV1::asics(uint32_t i0) const { return _asics[i0]; }
+const Psana::Epix::Asic10kConfigV1& Config10KV1::asics(uint32_t i0) const { return _asics.at(i0); }
 
 ndarray<const uint16_t, 3> Config10KV1::asicPixelConfigArray() const {
   return m_xtcObj->asicPixelConfigArray(m_xtcObj);
@@ -1768,7 +1768,7 @@ uint8_t Config100aV1::scopeChanBwaveformSelect() const {
   return m_xtcObj->scopeChanBwaveformSelect();
 }
 
-const Psana::Epix::Asic100aConfigV1& Config100aV1::asics(uint32_t i0) const { return _asics[i0]; }
+const Psana::Epix::Asic100aConfigV1& Config100aV1::asics(uint32_t i0) const { return _asics.at(i0); }
 
 ndarray<const uint16_t, 2> Config100aV1::asicPixelConfigArray() const {
   return m_xtcObj->asicPixelConfigArray(m_xtcObj);
@@ -2185,7 +2185,7 @@ uint8_t Config100aV2::scopeChanBwaveformSelect() const {
   return m_xtcObj->scopeChanBwaveformSelect();
 }
 
-const Psana::Epix::Asic100aConfigV1& Config100aV2::asics(uint32_t i0) const { return _asics[i0]; }
+const Psana::Epix::Asic100aConfigV1& Config100aV2::asics(uint32_t i0) const { return _asics.at(i0); }
 
 ndarray<const uint16_t, 2> Config100aV2::asicPixelConfigArray() const {
   return m_xtcObj->asicPixelConfigArray(m_xtcObj);
