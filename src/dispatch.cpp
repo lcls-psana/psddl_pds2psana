@@ -23,7 +23,7 @@
 #include "psddl_pds2psana/pimax.ddl.h"
 #include "psddl_pds2psana/andor.ddl.h"
 #include "psddl_pds2psana/fccd.ddl.h"
-#include "psddl_pds2psana/evr.ddl.h"
+#include "psddl_pds2psana/andor3d.ddl.h"
 #include "psddl_pds2psana/bld.ddl.h"
 #include "psddl_pds2psana/encoder.ddl.h"
 #include "psddl_pds2psana/pulnix.ddl.h"
@@ -31,6 +31,7 @@
 #include "psddl_pds2psana/quartz.ddl.h"
 #include "psddl_pds2psana/camera.ddl.h"
 #include "psddl_pds2psana/usdusb.ddl.h"
+#include "psddl_pds2psana/evr.ddl.h"
 #include "psddl_pds2psana/timetool.ddl.h"
 #include "psddl_pds2psana/alias.ddl.h"
 #include "psddl_pds2psana/ipimb.ddl.h"
@@ -173,6 +174,46 @@ try {
           // store proxy
           typedef EvtProxy<Psana::Bld::BldDataAnalogInputV1, psddl_pds2psana::Bld::BldDataAnalogInputV1, Pds::Bld::BldDataAnalogInputV1> ProxyType;
           if (evt) evt->putProxy<Psana::Bld::BldDataAnalogInputV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_Andor3dConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Andor3d::ConfigV1> xptr(xtc, (Pds::Andor3d::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Andor3d::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Andor3d::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_Andor3dFrame:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Andor3d::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Andor3d::FrameV1, psddl_pds2psana::Andor3d::FrameV1<Pds::Andor3d::ConfigV1>, Pds::Andor3d::FrameV1, Pds::Andor3d::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Andor3d::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Andor3d::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Andor3d::FrameV1, psddl_pds2psana::Andor3d::FrameV1<Pds::Andor3d::ConfigV1>, Pds::Andor3d::FrameV1, Pds::Andor3d::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Andor3d::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          }
         }
         break;
       } // end switch (version)
@@ -2585,6 +2626,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataAnalogInputV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Andor3dConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Andor3d::ConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Andor3dFrame:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Andor3d::FrameV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Andor3d::FrameV1) );
       break;
     } // end version switch
     break;
