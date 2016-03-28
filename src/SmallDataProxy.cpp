@@ -316,8 +316,9 @@ void SmallDataProxy::addEventProxy(const boost::shared_ptr<Pds::Xtc>& origXtc,
     try {
       evtForProxies->proxyDict()->put(largeObjProxy, curEventKey);
     } catch (PSEvt::ExceptionDuplicateKey &) {
-      MsgLog(logger, warning, "smallData duplicate Exception while adding " << curEventKey 
-             << " to the user event for proxies - ignoring.");
+      // catch exception for duplicated objects, ignore it. These can occur if
+      // a compressed and uncompressed cspad are in the same datagram (should ignore)
+      // or if a control stream is getting timestamps wrong (would want to report)
     }
   }
 }
