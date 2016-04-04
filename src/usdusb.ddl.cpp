@@ -9,6 +9,49 @@
 
 namespace psddl_pds2psana {
 namespace UsdUsb {
+FexConfigV1::FexConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::UsdUsb::FexConfigV1()
+  , m_xtcObj(xtcPtr)
+{
+}
+FexConfigV1::~FexConfigV1()
+{
+}
+
+
+ndarray<const int32_t, 1> FexConfigV1::offset() const {
+  return m_xtcObj->offset(m_xtcObj);
+}
+
+
+ndarray<const double, 1> FexConfigV1::scale() const {
+  return m_xtcObj->scale(m_xtcObj);
+}
+
+
+const char* FexConfigV1::name(uint32_t i0) const {
+  return m_xtcObj->name(i0);
+}
+
+
+std::vector<int> FexConfigV1::name_shape() const {
+  return m_xtcObj->name_shape();
+}
+
+FexDataV1::FexDataV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::UsdUsb::FexDataV1()
+  , m_xtcObj(xtcPtr)
+{
+}
+FexDataV1::~FexDataV1()
+{
+}
+
+
+ndarray<const double, 1> FexDataV1::encoder_values() const {
+  return m_xtcObj->encoder_values(m_xtcObj);
+}
+
 Psana::UsdUsb::ConfigV1::Count_Mode pds_to_psana(Pds::UsdUsb::ConfigV1::Count_Mode e)
 {
   return Psana::UsdUsb::ConfigV1::Count_Mode(e);

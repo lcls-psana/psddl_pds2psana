@@ -10,6 +10,35 @@
 namespace psddl_pds2psana {
 namespace UsdUsb {
 
+class FexConfigV1 : public Psana::UsdUsb::FexConfigV1 {
+public:
+  typedef Pds::UsdUsb::FexConfigV1 XtcType;
+  typedef Psana::UsdUsb::FexConfigV1 PsanaType;
+  FexConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~FexConfigV1();
+  virtual ndarray<const int32_t, 1> offset() const;
+  virtual ndarray<const double, 1> scale() const;
+  virtual const char* name(uint32_t i0) const;
+  virtual std::vector<int> name_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
+
+class FexDataV1 : public Psana::UsdUsb::FexDataV1 {
+public:
+  typedef Pds::UsdUsb::FexDataV1 XtcType;
+  typedef Psana::UsdUsb::FexDataV1 PsanaType;
+  FexDataV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~FexDataV1();
+  virtual ndarray<const double, 1> encoder_values() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
+
 class ConfigV1 : public Psana::UsdUsb::ConfigV1 {
 public:
   typedef Pds::UsdUsb::ConfigV1 XtcType;

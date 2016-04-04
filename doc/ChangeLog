@@ -11,6 +11,10 @@ Package author: Andrei Salnikov
 Please describe any modifications that you made to the package in the
 reverse time order.
 
+Tag: V00-09-28
+2016-4-4 David Schneider
+- update to pdsdata 8.6.7 with UsdUsb::FexConfigV1,FexDataV1, and Generic1D::ConfigV0,DataV0
+	
 Tag: V00-09-27
 2016-3-28 David Schneider
 - remove noisy warning about duplicate keys in small data JIRA PSAS-221

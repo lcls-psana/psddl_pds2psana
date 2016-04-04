@@ -23,21 +23,22 @@
 #include "psddl_pds2psana/pimax.ddl.h"
 #include "psddl_pds2psana/andor.ddl.h"
 #include "psddl_pds2psana/fccd.ddl.h"
-#include "psddl_pds2psana/andor3d.ddl.h"
+#include "psddl_pds2psana/generic1d.ddl.h"
+#include "psddl_pds2psana/evr.ddl.h"
 #include "psddl_pds2psana/bld.ddl.h"
 #include "psddl_pds2psana/encoder.ddl.h"
 #include "psddl_pds2psana/pulnix.ddl.h"
 #include "psddl_pds2psana/princeton.ddl.h"
 #include "psddl_pds2psana/quartz.ddl.h"
 #include "psddl_pds2psana/camera.ddl.h"
-#include "psddl_pds2psana/usdusb.ddl.h"
-#include "psddl_pds2psana/evr.ddl.h"
+#include "psddl_pds2psana/opal1k.ddl.h"
 #include "psddl_pds2psana/timetool.ddl.h"
 #include "psddl_pds2psana/alias.ddl.h"
 #include "psddl_pds2psana/ipimb.ddl.h"
 #include "psddl_pds2psana/smldata.ddl.h"
-#include "psddl_pds2psana/opal1k.ddl.h"
+#include "psddl_pds2psana/usdusb.ddl.h"
 #include "psddl_pds2psana/cspad2x2.ddl.h"
+#include "psddl_pds2psana/andor3d.ddl.h"
 #include "psddl_pds2psana/arraychar.ddl.h"
 #include "psddl_pds2psana/imp.ddl.h"
 #include "psddl_pds2psana/partition.ddl.h"
@@ -1321,6 +1322,46 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_Generic1DConfig:
+    {
+      switch (version) {
+      case 0:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Generic1D::ConfigV0> xptr(xtc, (Pds::Generic1D::ConfigV0*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Generic1D::ConfigV0> obj = boost::make_shared<psddl_pds2psana::Generic1D::ConfigV0>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_Generic1DData:
+    {
+      switch (version) {
+      case 0:
+        {
+          if (boost::shared_ptr<Pds::Generic1D::ConfigV0> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Generic1D::DataV0, psddl_pds2psana::Generic1D::DataV0<Pds::Generic1D::ConfigV0>, Pds::Generic1D::DataV0, Pds::Generic1D::ConfigV0> ProxyType;
+            if (evt) evt->putProxy<Psana::Generic1D::DataV0>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          }
+        }
+        break;
+      case 32768:
+        {
+          if (boost::shared_ptr<Pds::Generic1D::ConfigV0> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Generic1D::DataV0, psddl_pds2psana::Generic1D::DataV0<Pds::Generic1D::ConfigV0>, Pds::Generic1D::DataV0, Pds::Generic1D::ConfigV0> ProxyType;
+            if (evt) evt->putProxy<Psana::Generic1D::DataV0>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_GenericPgpConfig:
     {
       switch (version) {
@@ -2554,6 +2595,42 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_UsdUsbFexConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::UsdUsb::FexConfigV1> xptr(xtc, (Pds::UsdUsb::FexConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::UsdUsb::FexConfigV1> obj = boost::make_shared<psddl_pds2psana::UsdUsb::FexConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_UsdUsbFexData:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::UsdUsb::FexDataV1, psddl_pds2psana::UsdUsb::FexDataV1, Pds::UsdUsb::FexDataV1> ProxyType;
+          if (evt) evt->putProxy<Psana::UsdUsb::FexDataV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      case 32769:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::UsdUsb::FexDataV1, psddl_pds2psana::UsdUsb::FexDataV1, Pds::UsdUsb::FexDataV1> ProxyType;
+          if (evt) evt->putProxy<Psana::UsdUsb::FexDataV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   } // end switch
 
 } catch (const PSEvt::ExceptionDuplicateKey& ex) {
@@ -3034,6 +3111,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     } // end version switch
     break;
+  case Pds::TypeId::Id_Generic1DConfig:
+    switch(typeId.version()) {
+    case 0:
+      typeIdPtrs.push_back( &typeid(Psana::Generic1D::ConfigV0) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Generic1DData:
+    switch(typeId.version()) {
+    case 0:
+      typeIdPtrs.push_back( &typeid(Psana::Generic1D::DataV0) );
+      break;
+    case 32768:
+      typeIdPtrs.push_back( &typeid(Psana::Generic1D::DataV0) );
+      break;
+    } // end version switch
+    break;
   case Pds::TypeId::Id_GenericPgpConfig:
     switch(typeId.version()) {
     case 1:
@@ -3508,6 +3602,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::UsdUsb::DataV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_UsdUsbFexConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::UsdUsb::FexConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_UsdUsbFexData:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::UsdUsb::FexDataV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::UsdUsb::FexDataV1) );
       break;
     } // end version switch
     break;
