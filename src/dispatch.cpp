@@ -233,6 +233,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 2:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Andor::ConfigV2> xptr(xtc, (Pds::Andor::ConfigV2*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Andor::ConfigV2> obj = boost::make_shared<psddl_pds2psana::Andor::ConfigV2>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -245,6 +255,10 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV1>, Pds::Andor::FrameV1, Pds::Andor::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Andor::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV2>, Pds::Andor::FrameV1, Pds::Andor::ConfigV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           }
         }
         break;
@@ -253,6 +267,10 @@ try {
           if (boost::shared_ptr<Pds::Andor::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV1>, Pds::Andor::FrameV1, Pds::Andor::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Andor::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV2>, Pds::Andor::FrameV1, Pds::Andor::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           }
         }
@@ -2727,6 +2745,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     switch(typeId.version()) {
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Andor::ConfigV1) );
+      break;
+    case 2:
+      typeIdPtrs.push_back( &typeid(Psana::Andor::ConfigV2) );
       break;
     } // end version switch
     break;

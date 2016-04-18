@@ -41,6 +41,38 @@ private:
 };
 
 
+class ConfigV2 : public Psana::Andor::ConfigV2 {
+public:
+  typedef Pds::Andor::ConfigV2 XtcType;
+  typedef Psana::Andor::ConfigV2 PsanaType;
+  ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV2();
+  virtual uint32_t width() const;
+  virtual uint32_t height() const;
+  virtual uint32_t orgX() const;
+  virtual uint32_t orgY() const;
+  virtual uint32_t binX() const;
+  virtual uint32_t binY() const;
+  virtual float exposureTime() const;
+  virtual float coolingTemp() const;
+  virtual Psana::Andor::ConfigV2::EnumFanMode fanMode() const;
+  virtual Psana::Andor::ConfigV2::EnumCropMode cropMode() const;
+  virtual uint8_t baselineClamp() const;
+  virtual uint8_t highCapacity() const;
+  virtual uint8_t gainIndex() const;
+  virtual uint16_t readoutSpeedIndex() const;
+  virtual uint16_t exposureEventCode() const;
+  virtual uint32_t numDelayShots() const;
+  virtual uint32_t frameSize() const;
+  virtual uint32_t numPixelsX() const;
+  virtual uint32_t numPixelsY() const;
+  virtual uint32_t numPixels() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
+
 template <typename Config>
 class FrameV1 : public Psana::Andor::FrameV1 {
 public:

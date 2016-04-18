@@ -118,6 +118,125 @@ uint32_t ConfigV1::numPixels() const {
   return m_xtcObj->numPixels();
 }
 
+Psana::Andor::ConfigV2::EnumFanMode pds_to_psana(Pds::Andor::ConfigV2::EnumFanMode e)
+{
+  return Psana::Andor::ConfigV2::EnumFanMode(e);
+}
+
+Psana::Andor::ConfigV2::EnumCropMode pds_to_psana(Pds::Andor::ConfigV2::EnumCropMode e)
+{
+  return Psana::Andor::ConfigV2::EnumCropMode(e);
+}
+
+ConfigV2::ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Andor::ConfigV2()
+  , m_xtcObj(xtcPtr)
+{
+}
+ConfigV2::~ConfigV2()
+{
+}
+
+
+uint32_t ConfigV2::width() const {
+  return m_xtcObj->width();
+}
+
+
+uint32_t ConfigV2::height() const {
+  return m_xtcObj->height();
+}
+
+
+uint32_t ConfigV2::orgX() const {
+  return m_xtcObj->orgX();
+}
+
+
+uint32_t ConfigV2::orgY() const {
+  return m_xtcObj->orgY();
+}
+
+
+uint32_t ConfigV2::binX() const {
+  return m_xtcObj->binX();
+}
+
+
+uint32_t ConfigV2::binY() const {
+  return m_xtcObj->binY();
+}
+
+
+float ConfigV2::exposureTime() const {
+  return m_xtcObj->exposureTime();
+}
+
+
+float ConfigV2::coolingTemp() const {
+  return m_xtcObj->coolingTemp();
+}
+
+
+Psana::Andor::ConfigV2::EnumFanMode ConfigV2::fanMode() const {
+  return pds_to_psana(m_xtcObj->fanMode());
+}
+
+
+Psana::Andor::ConfigV2::EnumCropMode ConfigV2::cropMode() const {
+  return pds_to_psana(m_xtcObj->cropMode());
+}
+
+
+uint8_t ConfigV2::baselineClamp() const {
+  return m_xtcObj->baselineClamp();
+}
+
+
+uint8_t ConfigV2::highCapacity() const {
+  return m_xtcObj->highCapacity();
+}
+
+
+uint8_t ConfigV2::gainIndex() const {
+  return m_xtcObj->gainIndex();
+}
+
+
+uint16_t ConfigV2::readoutSpeedIndex() const {
+  return m_xtcObj->readoutSpeedIndex();
+}
+
+
+uint16_t ConfigV2::exposureEventCode() const {
+  return m_xtcObj->exposureEventCode();
+}
+
+
+uint32_t ConfigV2::numDelayShots() const {
+  return m_xtcObj->numDelayShots();
+}
+
+
+uint32_t ConfigV2::frameSize() const {
+  return m_xtcObj->frameSize();
+}
+
+
+uint32_t ConfigV2::numPixelsX() const {
+  return m_xtcObj->numPixelsX();
+}
+
+
+uint32_t ConfigV2::numPixelsY() const {
+  return m_xtcObj->numPixelsY();
+}
+
+
+uint32_t ConfigV2::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
 template <typename Config>
 FrameV1<Config>::FrameV1(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
   : Psana::Andor::FrameV1()
@@ -155,5 +274,6 @@ ndarray<const uint16_t, 2> FrameV1<Config>::data() const {
 }
 
 template class FrameV1<Pds::Andor::ConfigV1>;
+template class FrameV1<Pds::Andor::ConfigV2>;
 } // namespace Andor
 } // namespace psddl_pds2psana
