@@ -99,6 +99,35 @@ Psana::Bld::BldDataEBeamV7 pds_to_psana(Pds::Bld::BldDataEBeamV7 pds)
   return Psana::Bld::BldDataEBeamV7(pds.damageMask(), pds.ebeamCharge(), pds.ebeamL3Energy(), pds.ebeamLTUPosX(), pds.ebeamLTUPosY(), pds.ebeamLTUAngX(), pds.ebeamLTUAngY(), pds.ebeamPkCurrBC2(), pds.ebeamEnergyBC2(), pds.ebeamPkCurrBC1(), pds.ebeamEnergyBC1(), pds.ebeamUndPosX(), pds.ebeamUndPosY(), pds.ebeamUndAngX(), pds.ebeamUndAngY(), pds.ebeamXTCAVAmpl(), pds.ebeamXTCAVPhase(), pds.ebeamDumpCharge(), pds.ebeamPhotonEnergy(), pds.ebeamLTU250(), pds.ebeamLTU450());
 }
 
+BldDataEOrbitsV0::BldDataEOrbitsV0(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Bld::BldDataEOrbitsV0()
+  , m_xtcObj(xtcPtr)
+{
+}
+BldDataEOrbitsV0::~BldDataEOrbitsV0()
+{
+}
+
+
+uint32_t BldDataEOrbitsV0::nBPMS() const {
+  return m_xtcObj->nBPMS();
+}
+
+
+ndarray<const double, 1> BldDataEOrbitsV0::fBPM_X() const {
+  return m_xtcObj->fBPM_X(m_xtcObj);
+}
+
+
+ndarray<const double, 1> BldDataEOrbitsV0::fBPM_Y() const {
+  return m_xtcObj->fBPM_Y(m_xtcObj);
+}
+
+
+ndarray<const double, 1> BldDataEOrbitsV0::fBPM_TMIT() const {
+  return m_xtcObj->fBPM_TMIT(m_xtcObj);
+}
+
 Psana::Bld::BldDataPhaseCavity pds_to_psana(Pds::Bld::BldDataPhaseCavity pds)
 {
   return Psana::Bld::BldDataPhaseCavity(pds.fitTime1(), pds.fitTime2(), pds.charge1(), pds.charge2());

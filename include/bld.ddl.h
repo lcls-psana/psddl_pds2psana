@@ -34,6 +34,22 @@ Psana::Bld::BldDataEBeamV6 pds_to_psana(Pds::Bld::BldDataEBeamV6 pds);
 
 Psana::Bld::BldDataEBeamV7 pds_to_psana(Pds::Bld::BldDataEBeamV7 pds);
 
+
+class BldDataEOrbitsV0 : public Psana::Bld::BldDataEOrbitsV0 {
+public:
+  typedef Pds::Bld::BldDataEOrbitsV0 XtcType;
+  typedef Psana::Bld::BldDataEOrbitsV0 PsanaType;
+  BldDataEOrbitsV0(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~BldDataEOrbitsV0();
+  virtual uint32_t nBPMS() const;
+  virtual ndarray<const double, 1> fBPM_X() const;
+  virtual ndarray<const double, 1> fBPM_Y() const;
+  virtual ndarray<const double, 1> fBPM_TMIT() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
 Psana::Bld::BldDataPhaseCavity pds_to_psana(Pds::Bld::BldDataPhaseCavity pds);
 
 

@@ -818,6 +818,26 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_EOrbits:
+    {
+      switch (version) {
+      case 0:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataEOrbitsV0, psddl_pds2psana::Bld::BldDataEOrbitsV0, Pds::Bld::BldDataEOrbitsV0> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataEOrbitsV0>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      case 32768:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataEOrbitsV0, psddl_pds2psana::Bld::BldDataEOrbitsV0, Pds::Bld::BldDataEOrbitsV0> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataEOrbitsV0>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_EpicsConfig:
     {
       switch (version) {
@@ -2934,6 +2954,16 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32770:
       typeIdPtrs.push_back( &typeid(Psana::Encoder::DataV2) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_EOrbits:
+    switch(typeId.version()) {
+    case 0:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataEOrbitsV0) );
+      break;
+    case 32768:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataEOrbitsV0) );
       break;
     } // end version switch
     break;
