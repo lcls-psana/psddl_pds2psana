@@ -44,5 +44,65 @@ uint32_t ConfigV1::numSources() const {
 }
 
 ndarray<const Psana::Partition::Source, 1> ConfigV1::sources() const { return _sources_ndarray_storage_; }
+ConfigV2::ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Partition::ConfigV2()
+  , m_xtcObj(xtcPtr)
+{
+  {
+    typedef ndarray<Psana::Partition::Source, 1> NDArray;
+    typedef ndarray<const Pds::Partition::Source, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->sources();
+    _sources_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _sources_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::Partition::pds_to_psana(*it);
+    }
+  }
+}
+ConfigV2::~ConfigV2()
+{
+}
+
+
+uint32_t ConfigV2::numWords() const {
+  return m_xtcObj->numWords();
+}
+
+
+uint32_t ConfigV2::numSources() const {
+  return m_xtcObj->numSources();
+}
+
+
+ndarray<const uint32_t, 1> ConfigV2::bldMask() const {
+  return m_xtcObj->bldMask(m_xtcObj);
+}
+
+ndarray<const Psana::Partition::Source, 1> ConfigV2::sources() const { return _sources_ndarray_storage_; }
+
+uint32_t ConfigV2::numBldMaskBits() const {
+  return m_xtcObj->numBldMaskBits();
+}
+
+
+uint32_t ConfigV2::bldMaskIsZero() const {
+  return m_xtcObj->bldMaskIsZero();
+}
+
+
+uint32_t ConfigV2::bldMaskIsNotZero() const {
+  return m_xtcObj->bldMaskIsNotZero();
+}
+
+
+uint32_t ConfigV2::bldMaskHasBitSet(uint32_t iBit) const {
+  return m_xtcObj->bldMaskHasBitSet(iBit);
+}
+
+
+uint32_t ConfigV2::bldMaskHasBitClear(uint32_t iBit) const {
+  return m_xtcObj->bldMaskHasBitClear(iBit);
+}
+
 } // namespace Partition
 } // namespace psddl_pds2psana

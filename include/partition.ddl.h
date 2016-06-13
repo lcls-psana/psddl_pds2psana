@@ -28,6 +28,28 @@ private:
   ndarray<Psana::Partition::Source, 1> _sources_ndarray_storage_;
 };
 
+
+class ConfigV2 : public Psana::Partition::ConfigV2 {
+public:
+  typedef Pds::Partition::ConfigV2 XtcType;
+  typedef Psana::Partition::ConfigV2 PsanaType;
+  ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV2();
+  virtual uint32_t numWords() const;
+  virtual uint32_t numSources() const;
+  virtual ndarray<const uint32_t, 1> bldMask() const;
+  virtual ndarray<const Psana::Partition::Source, 1> sources() const;
+  virtual uint32_t numBldMaskBits() const;
+  virtual uint32_t bldMaskIsZero() const;
+  virtual uint32_t bldMaskIsNotZero() const;
+  virtual uint32_t bldMaskHasBitSet(uint32_t iBit) const;
+  virtual uint32_t bldMaskHasBitClear(uint32_t iBit) const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  ndarray<Psana::Partition::Source, 1> _sources_ndarray_storage_;
+};
+
 } // namespace Partition
 } // namespace psddl_pds2psana
 #endif // PSDDL_PDS2PSANA_PARTITION_DDL_H

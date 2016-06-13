@@ -1845,6 +1845,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 2:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Partition::ConfigV2> xptr(xtc, (Pds::Partition::ConfigV2*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Partition::ConfigV2> obj = boost::make_shared<psddl_pds2psana::Partition::ConfigV2>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -3361,6 +3371,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     switch(typeId.version()) {
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Partition::ConfigV1) );
+      break;
+    case 2:
+      typeIdPtrs.push_back( &typeid(Psana::Partition::ConfigV2) );
       break;
     } // end version switch
     break;
