@@ -178,6 +178,23 @@ BldDataPimV1::~BldDataPimV1()
 const Psana::Pulnix::TM6740ConfigV2& BldDataPimV1::camConfig() const { return _camConfig; }
 const Psana::Lusi::PimImageConfigV1& BldDataPimV1::pimConfig() const { return _pimConfig; }
 const Psana::Camera::FrameV1& BldDataPimV1::frame() const { return _frame; }
+BldDataUsdUsbV1::BldDataUsdUsbV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Bld::BldDataUsdUsbV1()
+  , m_xtcObj(xtcPtr)
+  , _config(boost::shared_ptr<const Pds::UsdUsb::ConfigV1>(xtcPtr, &xtcPtr->config()))
+  , _fexConfig(boost::shared_ptr<const Pds::UsdUsb::FexConfigV1>(xtcPtr, &xtcPtr->fexConfig()))
+  , _data(boost::shared_ptr<const Pds::UsdUsb::DataV1>(xtcPtr, &xtcPtr->data()))
+  , _fexData(boost::shared_ptr<const Pds::UsdUsb::FexDataV1>(xtcPtr, &xtcPtr->fexData()))
+{
+}
+BldDataUsdUsbV1::~BldDataUsdUsbV1()
+{
+}
+
+const Psana::UsdUsb::ConfigV1& BldDataUsdUsbV1::config() const { return _config; }
+const Psana::UsdUsb::FexConfigV1& BldDataUsdUsbV1::fexConfig() const { return _fexConfig; }
+const Psana::UsdUsb::DataV1& BldDataUsdUsbV1::data() const { return _data; }
+const Psana::UsdUsb::FexDataV1& BldDataUsdUsbV1::fexData() const { return _fexData; }
 BldDataGMDV0::BldDataGMDV0(const boost::shared_ptr<const XtcType>& xtcPtr)
   : Psana::Bld::BldDataGMDV0()
   , m_xtcObj(xtcPtr)
@@ -459,6 +476,45 @@ uint32_t BldDataAnalogInputV1::numChannels() const {
 
 ndarray<const double, 1> BldDataAnalogInputV1::channelVoltages() const {
   return m_xtcObj->channelVoltages(m_xtcObj);
+}
+
+BldDataBeamMonitorV1::BldDataBeamMonitorV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Bld::BldDataBeamMonitorV1()
+  , m_xtcObj(xtcPtr)
+{
+}
+BldDataBeamMonitorV1::~BldDataBeamMonitorV1()
+{
+}
+
+
+double BldDataBeamMonitorV1::TotalIntensity() const {
+  return m_xtcObj->TotalIntensity();
+}
+
+
+double BldDataBeamMonitorV1::X_Position() const {
+  return m_xtcObj->X_Position();
+}
+
+
+double BldDataBeamMonitorV1::Y_Position() const {
+  return m_xtcObj->Y_Position();
+}
+
+
+double BldDataBeamMonitorV1::peakA() const {
+  return m_xtcObj->peakA();
+}
+
+
+double BldDataBeamMonitorV1::peakT() const {
+  return m_xtcObj->peakT();
+}
+
+
+ndarray<const double, 1> BldDataBeamMonitorV1::Channel_Intensity() const {
+  return m_xtcObj->Channel_Intensity(m_xtcObj);
 }
 
 } // namespace Bld

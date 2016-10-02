@@ -108,7 +108,7 @@ XtcConverter::~XtcConverter ()
 const std::vector<XtcConverter::SharedSplitXtcs::SplitEntry> XtcConverter::SharedSplitXtcs::emptyList;
 
 XtcConverter::SharedSplitXtcs::SharedSplitXtcs() {
-  std::vector<SplitEntry> sharedIpimbVer0(3), sharedIpimbVer1(3), sharedPimVer1(3);
+  std::vector<SplitEntry> sharedIpimbVer0(3), sharedIpimbVer1(3), sharedPimVer1(3), sharedUsdUsbVer1(4);
 
   sharedIpimbVer0.at(0) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_IpimbData,1),  storeToEvent);
   sharedIpimbVer0.at(1) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_IpimbConfig,1), storeToConfig);
@@ -124,6 +124,12 @@ XtcConverter::SharedSplitXtcs::SharedSplitXtcs() {
   sharedPimVer1.at(1) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_PimImageConfig, 1), storeToConfig);
   sharedPimVer1.at(2) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_Frame, 1), storeToEvent);
   m_sharedSplitMap[Pds::TypeId(Pds::TypeId::Id_SharedPim,1)] = sharedIpimbVer1;
+
+  sharedUsdUsbVer1.at(0) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_UsdUsbConfig, 1), storeToConfig);
+  sharedUsdUsbVer1.at(1) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_UsdUsbFexConfig, 1), storeToConfig);
+  sharedUsdUsbVer1.at(2) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_UsdUsbData, 1), storeToEvent);
+  sharedUsdUsbVer1.at(3) = std::make_pair(Pds::TypeId(Pds::TypeId::Id_UsdUsbFexData, 1), storeToEvent);
+  m_sharedSplitMap[Pds::TypeId(Pds::TypeId::Id_SharedUsdUsb,1)] = sharedUsdUsbVer1;  
 }
 
 bool XtcConverter::SharedSplitXtcs::isSplitType(const Pds::TypeId &typeId) const {
@@ -265,6 +271,38 @@ XtcConverter::convert(const boost::shared_ptr<Pds::Xtc>& xtc, PSEvt::Event& evt,
     this->convert(newxtc, evt, cfgStore);
     if (not m_sharedSplit.equal(origTypeId,2,typeId,SharedSplitXtcs::storeToEvent)) MsgLog(logger,fatal,"splitEntry 2 is wrong");
 
+    return;
+
+  } else if (origTypeId.id() == Pds::TypeId::Id_SharedUsdUsb and origTypeId.version() == 1) {
+
+    const Pds::Bld::BldDataUsdUsbV1* bld = reinterpret_cast<const Pds::Bld::BldDataUsdUsbV1*>(xtc->payload());
+    Pds::TypeId typeId;
+    boost::shared_ptr<Pds::Xtc> newxtc;
+
+    const Pds::UsdUsb::ConfigV1 config = bld->config();
+    typeId = Pds::TypeId(Pds::TypeId::Id_UsdUsbConfig, 1);
+    newxtc = ::makeXtc(*xtc, typeId, reinterpret_cast<const char*>(&config), config._sizeof());
+    this->convertConfig(newxtc, cfgStore);
+    if (not m_sharedSplit.equal(origTypeId,0,typeId,SharedSplitXtcs::storeToConfig)) MsgLog(logger,fatal,"splitEntry 0 is wrong");
+
+    const Pds::UsdUsb::FexConfigV1& fexConfig = bld->fexConfig();
+    typeId = Pds::TypeId(Pds::TypeId::Id_UsdUsbFexConfig, 1);
+    newxtc = ::makeXtc(*xtc, typeId, reinterpret_cast<const char*>(&fexConfig), fexConfig._sizeof());
+    this->convertConfig(newxtc, cfgStore);
+    if (not m_sharedSplit.equal(origTypeId,1,typeId,SharedSplitXtcs::storeToConfig)) MsgLog(logger,fatal,"splitEntry 1 is wrong");
+
+    const Pds::UsdUsb::DataV1& data = bld->data();
+    typeId = Pds::TypeId(Pds::TypeId::Id_UsdUsbData, 1);
+    newxtc = ::makeXtc(*xtc, typeId, reinterpret_cast<const char*>(&data), data._sizeof());
+    this->convert(newxtc, evt, cfgStore);
+    if (not m_sharedSplit.equal(origTypeId,2,typeId,SharedSplitXtcs::storeToEvent)) MsgLog(logger,fatal,"splitEntry 2 is wrong");
+
+    const Pds::UsdUsb::FexDataV1& fexData = bld->fexData();
+    typeId = Pds::TypeId(Pds::TypeId::Id_UsdUsbFexData, 1);
+    newxtc = ::makeXtc(*xtc, typeId, reinterpret_cast<const char*>(&fexData), fexData._sizeof());
+    this->convert(newxtc, evt, cfgStore);
+    if (not m_sharedSplit.equal(origTypeId,3,typeId,SharedSplitXtcs::storeToEvent)) MsgLog(logger,fatal,"splitEntry 3 is wrong");
+    
     return;
 
   }

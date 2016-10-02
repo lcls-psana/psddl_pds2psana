@@ -298,6 +298,26 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_BeamMonitorBldData:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataBeamMonitorV1, psddl_pds2psana::Bld::BldDataBeamMonitorV1, Pds::Bld::BldDataBeamMonitorV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataBeamMonitorV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      case 32769:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataBeamMonitorV1, psddl_pds2psana::Bld::BldDataBeamMonitorV1, Pds::Bld::BldDataBeamMonitorV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataBeamMonitorV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_ControlConfig:
     {
       switch (version) {
@@ -2325,6 +2345,26 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_SharedUsdUsb:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataUsdUsbV1, psddl_pds2psana::Bld::BldDataUsdUsbV1, Pds::Bld::BldDataUsdUsbV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataUsdUsbV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      case 32769:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Bld::BldDataUsdUsbV1, psddl_pds2psana::Bld::BldDataUsdUsbV1, Pds::Bld::BldDataUsdUsbV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Bld::BldDataUsdUsbV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_SmlDataConfig:
     {
       switch (version) {
@@ -2798,6 +2838,16 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Arraychar::DataV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_BeamMonitorBldData:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataBeamMonitorV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataBeamMonitorV1) );
       break;
     } // end version switch
     break;
@@ -3531,6 +3581,16 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataPimV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_SharedUsdUsb:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataUsdUsbV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataUsdUsbV1) );
       break;
     } // end version switch
     break;

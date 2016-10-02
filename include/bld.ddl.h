@@ -12,6 +12,7 @@
 #include "psddl_pds2psana/ipimb.ddl.h"
 #include "psddl_pds2psana/lusi.ddl.h"
 #include "psddl_pds2psana/pulnix.ddl.h"
+#include "psddl_pds2psana/usdusb.ddl.h"
 namespace psddl_pds2psana {
 namespace Bld {
 Psana::Bld::BldDataFEEGasDetEnergy pds_to_psana(Pds::Bld::BldDataFEEGasDetEnergy pds);
@@ -104,6 +105,26 @@ private:
   psddl_pds2psana::Pulnix::TM6740ConfigV2 _camConfig;
   Psana::Lusi::PimImageConfigV1 _pimConfig;
   psddl_pds2psana::Camera::FrameV1 _frame;
+};
+
+
+class BldDataUsdUsbV1 : public Psana::Bld::BldDataUsdUsbV1 {
+public:
+  typedef Pds::Bld::BldDataUsdUsbV1 XtcType;
+  typedef Psana::Bld::BldDataUsdUsbV1 PsanaType;
+  BldDataUsdUsbV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~BldDataUsdUsbV1();
+  virtual const Psana::UsdUsb::ConfigV1& config() const;
+  virtual const Psana::UsdUsb::FexConfigV1& fexConfig() const;
+  virtual const Psana::UsdUsb::DataV1& data() const;
+  virtual const Psana::UsdUsb::FexDataV1& fexData() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  psddl_pds2psana::UsdUsb::ConfigV1 _config;
+  psddl_pds2psana::UsdUsb::FexConfigV1 _fexConfig;
+  psddl_pds2psana::UsdUsb::DataV1 _data;
+  psddl_pds2psana::UsdUsb::FexDataV1 _fexData;
 };
 
 
@@ -233,6 +254,24 @@ public:
   virtual ~BldDataAnalogInputV1();
   virtual uint32_t numChannels() const;
   virtual ndarray<const double, 1> channelVoltages() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
+
+class BldDataBeamMonitorV1 : public Psana::Bld::BldDataBeamMonitorV1 {
+public:
+  typedef Pds::Bld::BldDataBeamMonitorV1 XtcType;
+  typedef Psana::Bld::BldDataBeamMonitorV1 PsanaType;
+  BldDataBeamMonitorV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~BldDataBeamMonitorV1();
+  virtual double TotalIntensity() const;
+  virtual double X_Position() const;
+  virtual double Y_Position() const;
+  virtual double peakA() const;
+  virtual double peakT() const;
+  virtual ndarray<const double, 1> Channel_Intensity() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
