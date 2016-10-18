@@ -503,18 +503,13 @@ double BldDataBeamMonitorV1::Y_Position() const {
 }
 
 
-double BldDataBeamMonitorV1::peakA() const {
-  return m_xtcObj->peakA();
+ndarray<const double, 1> BldDataBeamMonitorV1::peakA() const {
+  return m_xtcObj->peakA(m_xtcObj);
 }
 
 
-double BldDataBeamMonitorV1::peakT() const {
-  return m_xtcObj->peakT();
-}
-
-
-ndarray<const double, 1> BldDataBeamMonitorV1::Channel_Intensity() const {
-  return m_xtcObj->Channel_Intensity(m_xtcObj);
+ndarray<const uint16_t, 1> BldDataBeamMonitorV1::peakT() const {
+  return m_xtcObj->peakT(m_xtcObj);
 }
 
 } // namespace Bld

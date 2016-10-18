@@ -269,9 +269,8 @@ public:
   virtual double TotalIntensity() const;
   virtual double X_Position() const;
   virtual double Y_Position() const;
-  virtual double peakA() const;
-  virtual double peakT() const;
-  virtual ndarray<const double, 1> Channel_Intensity() const;
+  virtual ndarray<const double, 1> peakA() const;
+  virtual ndarray<const uint16_t, 1> peakT() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
