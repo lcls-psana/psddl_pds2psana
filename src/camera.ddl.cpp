@@ -170,5 +170,59 @@ double TwoDGaussianV1::major_axis_tilt() const {
   return m_xtcObj->major_axis_tilt();
 }
 
+Psana::Camera::ControlsCameraConfigV1::ColorMode pds_to_psana(Pds::Camera::ControlsCameraConfigV1::ColorMode e)
+{
+  return Psana::Camera::ControlsCameraConfigV1::ColorMode(e);
+}
+
+ControlsCameraConfigV1::ControlsCameraConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Camera::ControlsCameraConfigV1()
+  , m_xtcObj(xtcPtr)
+{
+}
+ControlsCameraConfigV1::~ControlsCameraConfigV1()
+{
+}
+
+
+uint32_t ControlsCameraConfigV1::width() const {
+  return m_xtcObj->width();
+}
+
+
+uint32_t ControlsCameraConfigV1::height() const {
+  return m_xtcObj->height();
+}
+
+
+uint32_t ControlsCameraConfigV1::depth() const {
+  return m_xtcObj->depth();
+}
+
+
+Psana::Camera::ControlsCameraConfigV1::ColorMode ControlsCameraConfigV1::color_mode() const {
+  return pds_to_psana(m_xtcObj->color_mode());
+}
+
+
+double ControlsCameraConfigV1::exposure_time() const {
+  return m_xtcObj->exposure_time();
+}
+
+
+double ControlsCameraConfigV1::gain() const {
+  return m_xtcObj->gain();
+}
+
+
+const char* ControlsCameraConfigV1::manufacturer() const {
+  return m_xtcObj->manufacturer();
+}
+
+
+const char* ControlsCameraConfigV1::model() const {
+  return m_xtcObj->model();
+}
+
 } // namespace Camera
 } // namespace psddl_pds2psana

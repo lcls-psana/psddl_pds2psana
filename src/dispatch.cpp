@@ -354,6 +354,22 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_ControlsCameraConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Camera::ControlsCameraConfigV1> xptr(xtc, (Pds::Camera::ControlsCameraConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Camera::ControlsCameraConfigV1> obj = boost::make_shared<psddl_pds2psana::Camera::ControlsCameraConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_Cspad2x2Config:
     {
       switch (version) {
@@ -2861,6 +2877,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 3:
       typeIdPtrs.push_back( &typeid(Psana::ControlData::ConfigV3) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_ControlsCameraConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Camera::ControlsCameraConfigV1) );
       break;
     } // end version switch
     break;

@@ -84,6 +84,26 @@ private:
   boost::shared_ptr<const XtcType> m_xtcObj;
 };
 
+
+class ControlsCameraConfigV1 : public Psana::Camera::ControlsCameraConfigV1 {
+public:
+  typedef Pds::Camera::ControlsCameraConfigV1 XtcType;
+  typedef Psana::Camera::ControlsCameraConfigV1 PsanaType;
+  ControlsCameraConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ControlsCameraConfigV1();
+  virtual uint32_t width() const;
+  virtual uint32_t height() const;
+  virtual uint32_t depth() const;
+  virtual Psana::Camera::ControlsCameraConfigV1::ColorMode color_mode() const;
+  virtual double exposure_time() const;
+  virtual double gain() const;
+  virtual const char* manufacturer() const;
+  virtual const char* model() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
 } // namespace Camera
 } // namespace psddl_pds2psana
 #endif // PSDDL_PDS2PSANA_CAMERA_DDL_H
