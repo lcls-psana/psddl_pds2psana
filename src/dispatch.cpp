@@ -129,6 +129,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Acqiris::DataDescV1, psddl_pds2psana::Acqiris::DataDescV1<Pds::Acqiris::ConfigV1>, Pds::Acqiris::DataDescV1, Pds::Acqiris::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Acqiris::DataDescV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Acqiris::DataDescV1 in event because no config object found");
           }
         }
         break;
@@ -138,6 +140,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Acqiris::DataDescV1, psddl_pds2psana::Acqiris::DataDescV1<Pds::Acqiris::ConfigV1>, Pds::Acqiris::DataDescV1, Pds::Acqiris::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Acqiris::DataDescV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Acqiris::DataDescV1 in event because no config object found");
           }
         }
         break;
@@ -205,6 +209,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor3d::FrameV1, psddl_pds2psana::Andor3d::FrameV1<Pds::Andor3d::ConfigV1>, Pds::Andor3d::FrameV1, Pds::Andor3d::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Andor3d::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Andor3d::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -214,6 +220,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor3d::FrameV1, psddl_pds2psana::Andor3d::FrameV1<Pds::Andor3d::ConfigV1>, Pds::Andor3d::FrameV1, Pds::Andor3d::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Andor3d::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Andor3d::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -259,6 +267,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV2>, Pds::Andor::FrameV1, Pds::Andor::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Andor::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -272,6 +282,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Andor::FrameV1, psddl_pds2psana::Andor::FrameV1<Pds::Andor::ConfigV2>, Pds::Andor::FrameV1, Pds::Andor::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::Andor::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Andor::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -497,6 +509,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::CsPad::DataV1, psddl_pds2psana::CsPadDataOrdered<psddl_pds2psana::CsPad::DataV1<Pds::CsPad::ConfigV5>, Psana::CsPad::ElementV1>, Pds::CsPad::DataV1, Pds::CsPad::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::CsPad::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::CsPad::DataV1 in event because no config object found");
           }
         }
         break;
@@ -518,6 +532,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::CsPad::DataV2, psddl_pds2psana::CsPadDataOrdered<psddl_pds2psana::CsPad::DataV2<Pds::CsPad::ConfigV5>, Psana::CsPad::ElementV2>, Pds::CsPad::DataV2, Pds::CsPad::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::CsPad::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::CsPad::DataV2 in event because no config object found");
           }
         }
         break;
@@ -543,6 +559,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::CsPad::DataV1, psddl_pds2psana::CsPadDataOrdered<psddl_pds2psana::CsPad::DataV1<Pds::CsPad::ConfigV5>, Psana::CsPad::ElementV1>, Pds::CsPad::DataV1, Pds::CsPad::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::CsPad::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::CsPad::DataV1 in event because no config object found");
           }
         }
         break;
@@ -564,6 +582,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::CsPad::DataV2, psddl_pds2psana::CsPadDataOrdered<psddl_pds2psana::CsPad::DataV2<Pds::CsPad::ConfigV5>, Psana::CsPad::ElementV2>, Pds::CsPad::DataV2, Pds::CsPad::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::CsPad::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::CsPad::DataV2 in event because no config object found");
           }
         }
         break;
@@ -965,6 +985,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV1, psddl_pds2psana::Epix::ElementV1<Pds::GenericPgp::ConfigV1>, Pds::Epix::ElementV1, Pds::GenericPgp::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -978,6 +1000,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV2, psddl_pds2psana::Epix::ElementV2<Pds::Epix::Config100aV2>, Pds::Epix::ElementV2, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV2 in event because no config object found");
           }
         }
         break;
@@ -991,6 +1015,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV3 in event because no config object found");
           }
         }
         break;
@@ -1008,6 +1034,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV1, psddl_pds2psana::Epix::ElementV1<Pds::GenericPgp::ConfigV1>, Pds::Epix::ElementV1, Pds::GenericPgp::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -1021,6 +1049,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV2, psddl_pds2psana::Epix::ElementV2<Pds::Epix::Config100aV2>, Pds::Epix::ElementV2, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV2 in event because no config object found");
           }
         }
         break;
@@ -1034,6 +1064,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV3 in event because no config object found");
           }
         }
         break;
@@ -1065,6 +1097,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::EpixSampler::ElementV1, psddl_pds2psana::EpixSampler::ElementV1<Pds::EpixSampler::ConfigV1>, Pds::EpixSampler::ElementV1, Pds::EpixSampler::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::EpixSampler::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::EpixSampler::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -1074,6 +1108,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::EpixSampler::ElementV1, psddl_pds2psana::EpixSampler::ElementV1<Pds::EpixSampler::ConfigV1>, Pds::EpixSampler::ElementV1, Pds::EpixSampler::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::EpixSampler::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::EpixSampler::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -1329,6 +1365,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Fli::FrameV1, psddl_pds2psana::Fli::FrameV1<Pds::Fli::ConfigV1>, Pds::Fli::FrameV1, Pds::Fli::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Fli::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Fli::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -1338,6 +1376,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Fli::FrameV1, psddl_pds2psana::Fli::FrameV1<Pds::Fli::ConfigV1>, Pds::Fli::FrameV1, Pds::Fli::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Fli::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Fli::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -1421,6 +1461,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Generic1D::DataV0, psddl_pds2psana::Generic1D::DataV0<Pds::Generic1D::ConfigV0>, Pds::Generic1D::DataV0, Pds::Generic1D::ConfigV0> ProxyType;
             if (evt) evt->putProxy<Psana::Generic1D::DataV0>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Generic1D::DataV0 in event because no config object found");
           }
         }
         break;
@@ -1430,6 +1472,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Generic1D::DataV0, psddl_pds2psana::Generic1D::DataV0<Pds::Generic1D::ConfigV0>, Pds::Generic1D::DataV0, Pds::Generic1D::ConfigV0> ProxyType;
             if (evt) evt->putProxy<Psana::Generic1D::DataV0>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Generic1D::DataV0 in event because no config object found");
           }
         }
         break;
@@ -1525,6 +1569,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Gsc16ai::DataV1, psddl_pds2psana::Gsc16ai::DataV1<Pds::Gsc16ai::ConfigV1>, Pds::Gsc16ai::DataV1, Pds::Gsc16ai::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Gsc16ai::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Gsc16ai::DataV1 in event because no config object found");
           }
         }
         break;
@@ -1534,6 +1580,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Gsc16ai::DataV1, psddl_pds2psana::Gsc16ai::DataV1<Pds::Gsc16ai::ConfigV1>, Pds::Gsc16ai::DataV1, Pds::Gsc16ai::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Gsc16ai::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Gsc16ai::DataV1 in event because no config object found");
           }
         }
         break;
@@ -1565,6 +1613,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Imp::ElementV1, psddl_pds2psana::Imp::ElementV1<Pds::Imp::ConfigV1>, Pds::Imp::ElementV1, Pds::Imp::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Imp::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Imp::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -1574,6 +1624,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Imp::ElementV1, psddl_pds2psana::Imp::ElementV1<Pds::Imp::ConfigV1>, Pds::Imp::ElementV1, Pds::Imp::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Imp::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Imp::ElementV1 in event because no config object found");
           }
         }
         break;
@@ -1781,6 +1833,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV1, psddl_pds2psana::OceanOptics::DataV1<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV1, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV1 in event because no config object found");
           }
         }
         break;
@@ -1790,6 +1844,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV2, psddl_pds2psana::OceanOptics::DataV2<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV2, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV2 in event because no config object found");
           }
         }
         break;
@@ -1799,6 +1855,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV3, psddl_pds2psana::OceanOptics::DataV3<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV3, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV3 in event because no config object found");
           }
         }
         break;
@@ -1812,6 +1870,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV1, psddl_pds2psana::OceanOptics::DataV1<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV1, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV1 in event because no config object found");
           }
         }
         break;
@@ -1821,6 +1881,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV2, psddl_pds2psana::OceanOptics::DataV2<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV2, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV2 in event because no config object found");
           }
         }
         break;
@@ -1830,6 +1892,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::OceanOptics::DataV3, psddl_pds2psana::OceanOptics::DataV3<Pds::OceanOptics::ConfigV2>, Pds::OceanOptics::DataV3, Pds::OceanOptics::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::OceanOptics::DataV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::OceanOptics::DataV3 in event because no config object found");
           }
         }
         break;
@@ -1945,6 +2009,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Pimax::FrameV1, psddl_pds2psana::Pimax::FrameV1<Pds::Pimax::ConfigV1>, Pds::Pimax::FrameV1, Pds::Pimax::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Pimax::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Pimax::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -1954,6 +2020,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Pimax::FrameV1, psddl_pds2psana::Pimax::FrameV1<Pds::Pimax::ConfigV1>, Pds::Pimax::FrameV1, Pds::Pimax::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Pimax::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Pimax::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -2021,6 +2089,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::PNCCD::FramesV1, psddl_pds2psana::PNCCD::FramesV1<Pds::PNCCD::ConfigV2>, Pds::PNCCD::FramesV1, Pds::PNCCD::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::PNCCD::FramesV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::PNCCD::FramesV1 in event because no config object found");
           }
         }
         break;
@@ -2037,6 +2107,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::PNCCD::FramesV1, psddl_pds2psana::PNCCD::FramesV1<Pds::PNCCD::ConfigV2>, Pds::PNCCD::FramesV1, Pds::PNCCD::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::PNCCD::FramesV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::PNCCD::FramesV1 in event because no config object found");
           }
         }
         break;
@@ -2124,6 +2196,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Princeton::FrameV1, psddl_pds2psana::Princeton::FrameV1<Pds::Princeton::ConfigV5>, Pds::Princeton::FrameV1, Pds::Princeton::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::Princeton::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Princeton::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -2149,6 +2223,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Princeton::FrameV2, psddl_pds2psana::Princeton::FrameV2<Pds::Princeton::ConfigV5>, Pds::Princeton::FrameV2, Pds::Princeton::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::Princeton::FrameV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Princeton::FrameV2 in event because no config object found");
           }
         }
         break;
@@ -2174,6 +2250,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Princeton::FrameV1, psddl_pds2psana::Princeton::FrameV1<Pds::Princeton::ConfigV5>, Pds::Princeton::FrameV1, Pds::Princeton::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::Princeton::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Princeton::FrameV1 in event because no config object found");
           }
         }
         break;
@@ -2199,6 +2277,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Princeton::FrameV2, psddl_pds2psana::Princeton::FrameV2<Pds::Princeton::ConfigV5>, Pds::Princeton::FrameV2, Pds::Princeton::ConfigV5> ProxyType;
             if (evt) evt->putProxy<Psana::Princeton::FrameV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Princeton::FrameV2 in event because no config object found");
           }
         }
         break;
@@ -2292,6 +2372,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Bld::BldDataAcqADCV1, psddl_pds2psana::Bld::BldDataAcqADCV1<Pds::Acqiris::ConfigV1>, Pds::Bld::BldDataAcqADCV1, Pds::Acqiris::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Bld::BldDataAcqADCV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Bld::BldDataAcqADCV1 in event because no config object found");
           }
         }
         break;
@@ -2301,6 +2383,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Bld::BldDataAcqADCV1, psddl_pds2psana::Bld::BldDataAcqADCV1<Pds::Acqiris::ConfigV1>, Pds::Bld::BldDataAcqADCV1, Pds::Acqiris::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Bld::BldDataAcqADCV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Bld::BldDataAcqADCV1 in event because no config object found");
           }
         }
         break;
@@ -2406,6 +2490,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::SmlData::OrigDgramOffsetV1, psddl_pds2psana::SmlData::OrigDgramOffsetV1<Pds::SmlData::ConfigV1>, Pds::SmlData::OrigDgramOffsetV1, Pds::SmlData::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::SmlData::OrigDgramOffsetV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::SmlData::OrigDgramOffsetV1 in event because no config object found");
           }
         }
         break;
@@ -2415,6 +2501,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::SmlData::OrigDgramOffsetV1, psddl_pds2psana::SmlData::OrigDgramOffsetV1<Pds::SmlData::ConfigV1>, Pds::SmlData::OrigDgramOffsetV1, Pds::SmlData::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::SmlData::OrigDgramOffsetV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::SmlData::OrigDgramOffsetV1 in event because no config object found");
           }
         }
         break;
@@ -2430,6 +2518,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::SmlData::ProxyV1, psddl_pds2psana::SmlData::ProxyV1<Pds::SmlData::ConfigV1>, Pds::SmlData::ProxyV1, Pds::SmlData::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::SmlData::ProxyV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::SmlData::ProxyV1 in event because no config object found");
           }
         }
         break;
@@ -2439,6 +2529,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::SmlData::ProxyV1, psddl_pds2psana::SmlData::ProxyV1<Pds::SmlData::ConfigV1>, Pds::SmlData::ProxyV1, Pds::SmlData::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::SmlData::ProxyV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::SmlData::ProxyV1 in event because no config object found");
           }
         }
         break;
@@ -2584,6 +2676,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::TimeTool::DataV1, psddl_pds2psana::TimeTool::DataV1<Pds::TimeTool::ConfigV1>, Pds::TimeTool::DataV1, Pds::TimeTool::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::TimeTool::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV1 in event because no config object found");
           }
         }
         break;
@@ -2593,6 +2687,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::TimeTool::DataV2, psddl_pds2psana::TimeTool::DataV2<Pds::TimeTool::ConfigV2>, Pds::TimeTool::DataV2, Pds::TimeTool::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::TimeTool::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV2 in event because no config object found");
           }
         }
         break;
@@ -2602,6 +2698,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::TimeTool::DataV1, psddl_pds2psana::TimeTool::DataV1<Pds::TimeTool::ConfigV1>, Pds::TimeTool::DataV1, Pds::TimeTool::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::TimeTool::DataV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV1 in event because no config object found");
           }
         }
         break;
@@ -2611,6 +2709,8 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::TimeTool::DataV2, psddl_pds2psana::TimeTool::DataV2<Pds::TimeTool::ConfigV2>, Pds::TimeTool::DataV2, Pds::TimeTool::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::TimeTool::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV2 in event because no config object found");
           }
         }
         break;
