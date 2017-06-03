@@ -78,6 +78,120 @@ uint32_t ConfigV1::numPixels() const {
   return m_xtcObj->numPixels();
 }
 
+Psana::Jungfrau::ConfigV2::GainMode pds_to_psana(Pds::Jungfrau::ConfigV2::GainMode e)
+{
+  return Psana::Jungfrau::ConfigV2::GainMode(e);
+}
+
+Psana::Jungfrau::ConfigV2::SpeedMode pds_to_psana(Pds::Jungfrau::ConfigV2::SpeedMode e)
+{
+  return Psana::Jungfrau::ConfigV2::SpeedMode(e);
+}
+
+ConfigV2::ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Jungfrau::ConfigV2()
+  , m_xtcObj(xtcPtr)
+{
+}
+ConfigV2::~ConfigV2()
+{
+}
+
+
+uint32_t ConfigV2::numberOfModules() const {
+  return m_xtcObj->numberOfModules();
+}
+
+
+uint32_t ConfigV2::numberOfRowsPerModule() const {
+  return m_xtcObj->numberOfRowsPerModule();
+}
+
+
+uint32_t ConfigV2::numberOfColumnsPerModule() const {
+  return m_xtcObj->numberOfColumnsPerModule();
+}
+
+
+uint32_t ConfigV2::biasVoltage() const {
+  return m_xtcObj->biasVoltage();
+}
+
+
+Psana::Jungfrau::ConfigV2::GainMode ConfigV2::gainMode() const {
+  return pds_to_psana(m_xtcObj->gainMode());
+}
+
+
+Psana::Jungfrau::ConfigV2::SpeedMode ConfigV2::speedMode() const {
+  return pds_to_psana(m_xtcObj->speedMode());
+}
+
+
+double ConfigV2::triggerDelay() const {
+  return m_xtcObj->triggerDelay();
+}
+
+
+double ConfigV2::exposureTime() const {
+  return m_xtcObj->exposureTime();
+}
+
+
+double ConfigV2::exposurePeriod() const {
+  return m_xtcObj->exposurePeriod();
+}
+
+
+uint16_t ConfigV2::vb_ds() const {
+  return m_xtcObj->vb_ds();
+}
+
+
+uint16_t ConfigV2::vb_comp() const {
+  return m_xtcObj->vb_comp();
+}
+
+
+uint16_t ConfigV2::vb_pixbuf() const {
+  return m_xtcObj->vb_pixbuf();
+}
+
+
+uint16_t ConfigV2::vref_ds() const {
+  return m_xtcObj->vref_ds();
+}
+
+
+uint16_t ConfigV2::vref_comp() const {
+  return m_xtcObj->vref_comp();
+}
+
+
+uint16_t ConfigV2::vref_prech() const {
+  return m_xtcObj->vref_prech();
+}
+
+
+uint16_t ConfigV2::vin_com() const {
+  return m_xtcObj->vin_com();
+}
+
+
+uint16_t ConfigV2::vdd_prot() const {
+  return m_xtcObj->vdd_prot();
+}
+
+
+uint32_t ConfigV2::frameSize() const {
+  return m_xtcObj->frameSize();
+}
+
+
+uint32_t ConfigV2::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
 template <typename Config>
 ElementV1<Config>::ElementV1(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
   : Psana::Jungfrau::ElementV1()
@@ -115,5 +229,6 @@ ndarray<const uint16_t, 3> ElementV1<Config>::frame() const {
 }
 
 template class ElementV1<Pds::Jungfrau::ConfigV1>;
+template class ElementV1<Pds::Jungfrau::ConfigV2>;
 } // namespace Jungfrau
 } // namespace psddl_pds2psana

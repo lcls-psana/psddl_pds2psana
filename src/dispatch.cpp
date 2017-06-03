@@ -11,6 +11,7 @@
 #include "psddl_pds2psana/epics.ddl.h"
 #include "psddl_pds2psana/pnccd.ddl.h"
 #include "psddl_pds2psana/oceanoptics.ddl.h"
+#include "psddl_pds2psana/quadadc.ddl.h"
 #include "psddl_pds2psana/gsc16ai.ddl.h"
 #include "psddl_pds2psana/rayonix.ddl.h"
 #include "psddl_pds2psana/lusi.ddl.h"
@@ -41,6 +42,7 @@
 #include "psddl_pds2psana/cspad2x2.ddl.h"
 #include "psddl_pds2psana/andor3d.ddl.h"
 #include "psddl_pds2psana/arraychar.ddl.h"
+#include "psddl_pds2psana/zyla.ddl.h"
 #include "psddl_pds2psana/imp.ddl.h"
 #include "psddl_pds2psana/partition.ddl.h"
 #include "psddl_pds2psana/epixsampler.ddl.h"
@@ -1758,6 +1760,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 2:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Jungfrau::ConfigV2> xptr(xtc, (Pds::Jungfrau::ConfigV2*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Jungfrau::ConfigV2> obj = boost::make_shared<psddl_pds2psana::Jungfrau::ConfigV2>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -1770,6 +1782,10 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Jungfrau::ElementV1, psddl_pds2psana::Jungfrau::ElementV1<Pds::Jungfrau::ConfigV1>, Pds::Jungfrau::ElementV1, Pds::Jungfrau::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Jungfrau::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Jungfrau::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV1, psddl_pds2psana::Jungfrau::ElementV1<Pds::Jungfrau::ConfigV2>, Pds::Jungfrau::ElementV1, Pds::Jungfrau::ConfigV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Jungfrau::ElementV1 in event because no config object found");
           }
@@ -1780,6 +1796,10 @@ try {
           if (boost::shared_ptr<Pds::Jungfrau::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Jungfrau::ElementV1, psddl_pds2psana::Jungfrau::ElementV1<Pds::Jungfrau::ConfigV1>, Pds::Jungfrau::ElementV1, Pds::Jungfrau::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Jungfrau::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV1, psddl_pds2psana::Jungfrau::ElementV1<Pds::Jungfrau::ConfigV2>, Pds::Jungfrau::ElementV1, Pds::Jungfrau::ConfigV2> ProxyType;
             if (evt) evt->putProxy<Psana::Jungfrau::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Jungfrau::ElementV1 in event because no config object found");
@@ -2356,6 +2376,22 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_QuadAdcConfig:
+    {
+      switch (version) {
+      case 0:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::QuadAdc::ConfigV1> xptr(xtc, (Pds::QuadAdc::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::QuadAdc::ConfigV1> obj = boost::make_shared<psddl_pds2psana::QuadAdc::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_QuartzConfig:
     {
       switch (version) {
@@ -2875,6 +2911,50 @@ try {
           // store proxy
           typedef EvtProxy<Psana::UsdUsb::FexDataV1, psddl_pds2psana::UsdUsb::FexDataV1, Pds::UsdUsb::FexDataV1> ProxyType;
           if (evt) evt->putProxy<Psana::UsdUsb::FexDataV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_ZylaConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Zyla::ConfigV1> xptr(xtc, (Pds::Zyla::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Zyla::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Zyla::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_ZylaFrame:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::Zyla::ConfigV1>, Pds::Zyla::FrameV1, Pds::Zyla::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Zyla::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::Zyla::ConfigV1>, Pds::Zyla::FrameV1, Pds::Zyla::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Zyla::FrameV1 in event because no config object found");
+          }
         }
         break;
       } // end switch (version)
@@ -3521,6 +3601,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ConfigV1) );
       break;
+    case 2:
+      typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ConfigV2) );
+      break;
     } // end version switch
     break;
   case Pds::TypeId::Id_JungfrauElement:
@@ -3710,6 +3793,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Princeton::InfoV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_QuadAdcConfig:
+    switch(typeId.version()) {
+    case 0:
+      typeIdPtrs.push_back( &typeid(Psana::QuadAdc::ConfigV1) );
       break;
     } // end version switch
     break;
@@ -3928,6 +4018,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::UsdUsb::FexDataV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_ZylaConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Zyla::ConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_ZylaFrame:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Zyla::FrameV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Zyla::FrameV1) );
       break;
     } // end version switch
     break;
