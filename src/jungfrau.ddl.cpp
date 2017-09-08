@@ -192,6 +192,45 @@ uint32_t ConfigV2::numPixels() const {
   return m_xtcObj->numPixels();
 }
 
+ModuleInfoV1::ModuleInfoV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Jungfrau::ModuleInfoV1()
+  , m_xtcObj(xtcPtr)
+{
+}
+ModuleInfoV1::~ModuleInfoV1()
+{
+}
+
+
+uint64_t ModuleInfoV1::timestamp() const {
+  return m_xtcObj->timestamp();
+}
+
+
+uint32_t ModuleInfoV1::exposureTime() const {
+  return m_xtcObj->exposureTime();
+}
+
+
+uint16_t ModuleInfoV1::moduleID() const {
+  return m_xtcObj->moduleID();
+}
+
+
+uint16_t ModuleInfoV1::xCoord() const {
+  return m_xtcObj->xCoord();
+}
+
+
+uint16_t ModuleInfoV1::yCoord() const {
+  return m_xtcObj->yCoord();
+}
+
+
+uint16_t ModuleInfoV1::zCoord() const {
+  return m_xtcObj->zCoord();
+}
+
 template <typename Config>
 ElementV1<Config>::ElementV1(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
   : Psana::Jungfrau::ElementV1()
@@ -230,5 +269,63 @@ ndarray<const uint16_t, 3> ElementV1<Config>::frame() const {
 
 template class ElementV1<Pds::Jungfrau::ConfigV1>;
 template class ElementV1<Pds::Jungfrau::ConfigV2>;
+template <typename Config>
+ElementV2<Config>::ElementV2(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
+  : Psana::Jungfrau::ElementV2()
+  , m_xtcObj(xtcPtr)
+  , m_cfgPtr(cfgPtr)
+{
+  {
+    const std::vector<int>& dims = xtcPtr->moduleInfo_shape(*cfgPtr);
+    _moduleInfo.reserve(dims[0]);
+    for (int i0=0; i0 != dims[0]; ++i0) {
+      const Pds::Jungfrau::ModuleInfoV1& d = xtcPtr->moduleInfo(i0);
+      boost::shared_ptr<const Pds::Jungfrau::ModuleInfoV1> dPtr(m_xtcObj, &d);
+      _moduleInfo.push_back(psddl_pds2psana::Jungfrau::ModuleInfoV1(dPtr));
+    }
+  }
+}
+template <typename Config>
+ElementV2<Config>::~ElementV2()
+{
+}
+
+
+template <typename Config>
+uint64_t ElementV2<Config>::frameNumber() const {
+  return m_xtcObj->frameNumber();
+}
+
+
+template <typename Config>
+uint32_t ElementV2<Config>::ticks() const {
+  return m_xtcObj->ticks();
+}
+
+
+template <typename Config>
+uint32_t ElementV2<Config>::fiducials() const {
+  return m_xtcObj->fiducials();
+}
+
+template <typename Config>
+const Psana::Jungfrau::ModuleInfoV1& ElementV2<Config>::moduleInfo(uint32_t i0) const { return _moduleInfo.at(i0); }
+
+template <typename Config>
+ndarray<const uint16_t, 3> ElementV2<Config>::frame() const {
+  return m_xtcObj->frame(*m_cfgPtr, m_xtcObj);
+}
+
+template <typename Config>
+std::vector<int> ElementV2<Config>::moduleInfo_shape() const
+{
+  std::vector<int> shape;
+  shape.reserve(1);
+  shape.push_back(_moduleInfo.size());
+  return shape;
+}
+
+template class ElementV2<Pds::Jungfrau::ConfigV1>;
+template class ElementV2<Pds::Jungfrau::ConfigV2>;
 } // namespace Jungfrau
 } // namespace psddl_pds2psana

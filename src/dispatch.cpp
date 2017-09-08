@@ -1791,6 +1791,21 @@ try {
           }
         }
         break;
+      case 2:
+        {
+          if (boost::shared_ptr<Pds::Jungfrau::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV2, psddl_pds2psana::Jungfrau::ElementV2<Pds::Jungfrau::ConfigV1>, Pds::Jungfrau::ElementV2, Pds::Jungfrau::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Jungfrau::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV2, psddl_pds2psana::Jungfrau::ElementV2<Pds::Jungfrau::ConfigV2>, Pds::Jungfrau::ElementV2, Pds::Jungfrau::ConfigV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Jungfrau::ElementV2 in event because no config object found");
+          }
+        }
+        break;
       case 32769:
         {
           if (boost::shared_ptr<Pds::Jungfrau::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
@@ -1803,6 +1818,21 @@ try {
             if (evt) evt->putProxy<Psana::Jungfrau::ElementV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Jungfrau::ElementV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32770:
+        {
+          if (boost::shared_ptr<Pds::Jungfrau::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV2, psddl_pds2psana::Jungfrau::ElementV2<Pds::Jungfrau::ConfigV1>, Pds::Jungfrau::ElementV2, Pds::Jungfrau::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Jungfrau::ConfigV2> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Jungfrau::ElementV2, psddl_pds2psana::Jungfrau::ElementV2<Pds::Jungfrau::ConfigV2>, Pds::Jungfrau::ElementV2, Pds::Jungfrau::ConfigV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Jungfrau::ElementV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Jungfrau::ElementV2 in event because no config object found");
           }
         }
         break;
@@ -3611,8 +3641,14 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ElementV1) );
       break;
+    case 2:
+      typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ElementV2) );
+      break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ElementV1) );
+      break;
+    case 32770:
+      typeIdPtrs.push_back( &typeid(Psana::Jungfrau::ElementV2) );
       break;
     } // end version switch
     break;

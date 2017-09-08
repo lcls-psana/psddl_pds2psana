@@ -63,6 +63,24 @@ private:
 };
 
 
+class ModuleInfoV1 : public Psana::Jungfrau::ModuleInfoV1 {
+public:
+  typedef Pds::Jungfrau::ModuleInfoV1 XtcType;
+  typedef Psana::Jungfrau::ModuleInfoV1 PsanaType;
+  ModuleInfoV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ModuleInfoV1();
+  virtual uint64_t timestamp() const;
+  virtual uint32_t exposureTime() const;
+  virtual uint16_t moduleID() const;
+  virtual uint16_t xCoord() const;
+  virtual uint16_t yCoord() const;
+  virtual uint16_t zCoord() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
+
 template <typename Config>
 class ElementV1 : public Psana::Jungfrau::ElementV1 {
 public:
@@ -78,6 +96,27 @@ public:
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
   boost::shared_ptr<const Config> m_cfgPtr;
+};
+
+
+template <typename Config>
+class ElementV2 : public Psana::Jungfrau::ElementV2 {
+public:
+  typedef Pds::Jungfrau::ElementV2 XtcType;
+  typedef Psana::Jungfrau::ElementV2 PsanaType;
+  ElementV2(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr);
+  virtual ~ElementV2();
+  virtual uint64_t frameNumber() const;
+  virtual uint32_t ticks() const;
+  virtual uint32_t fiducials() const;
+  virtual const Psana::Jungfrau::ModuleInfoV1& moduleInfo(uint32_t i0) const;
+  virtual ndarray<const uint16_t, 3> frame() const;
+  virtual std::vector<int> moduleInfo_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  boost::shared_ptr<const Config> m_cfgPtr;
+  std::vector< psddl_pds2psana::Jungfrau::ModuleInfoV1 > _moduleInfo;
 };
 
 } // namespace Jungfrau
