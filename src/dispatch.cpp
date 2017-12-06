@@ -939,6 +939,22 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_Epix10kaConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Epix::Config10kaV1> xptr(xtc, (Pds::Epix::Config10kaV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Epix::Config10kaV1> obj = boost::make_shared<psddl_pds2psana::Epix::Config10kaV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_Epix10kConfig:
     {
       switch (version) {
@@ -1018,6 +1034,10 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Epix::Config10kaV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config10kaV1>, Pds::Epix::ElementV3, Pds::Epix::Config10kaV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV3 in event because no config object found");
           }
@@ -1066,6 +1086,10 @@ try {
           } else if (boost::shared_ptr<Pds::Epix::Config100aV2> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Epix::Config10kaV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config10kaV1>, Pds::Epix::ElementV3, Pds::Epix::Config10kaV1> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ElementV3 in event because no config object found");
@@ -3345,6 +3369,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::Epix::Config100aV2) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Epix10kaConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Epix::Config10kaV1) );
       break;
     } // end version switch
     break;
