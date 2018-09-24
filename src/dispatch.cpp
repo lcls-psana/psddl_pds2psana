@@ -17,6 +17,7 @@
 #include "psddl_pds2psana/lusi.ddl.h"
 #include "psddl_pds2psana/timepix.ddl.h"
 #include "psddl_pds2psana/cspad.ddl.h"
+#include "psddl_pds2psana/uxi.ddl.h"
 #include "psddl_pds2psana/epix.ddl.h"
 #include "psddl_pds2psana/orca.ddl.h"
 #include "psddl_pds2psana/control.ddl.h"
@@ -27,6 +28,7 @@
 #include "psddl_pds2psana/generic1d.ddl.h"
 #include "psddl_pds2psana/evr.ddl.h"
 #include "psddl_pds2psana/bld.ddl.h"
+#include "psddl_pds2psana/archon.ddl.h"
 #include "psddl_pds2psana/encoder.ddl.h"
 #include "psddl_pds2psana/pulnix.ddl.h"
 #include "psddl_pds2psana/princeton.ddl.h"
@@ -39,6 +41,7 @@
 #include "psddl_pds2psana/ipimb.ddl.h"
 #include "psddl_pds2psana/smldata.ddl.h"
 #include "psddl_pds2psana/usdusb.ddl.h"
+#include "psddl_pds2psana/pixis.ddl.h"
 #include "psddl_pds2psana/cspad2x2.ddl.h"
 #include "psddl_pds2psana/andor3d.ddl.h"
 #include "psddl_pds2psana/arraychar.ddl.h"
@@ -288,6 +291,22 @@ try {
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::Andor::FrameV1 in event because no config object found");
           }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_ArchonConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Archon::ConfigV1> xptr(xtc, (Pds::Archon::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Archon::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
         }
         break;
       } // end switch (version)
@@ -2192,6 +2211,50 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_PixisConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Pixis::ConfigV1> xptr(xtc, (Pds::Pixis::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Pixis::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Pixis::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_PixisFrame:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Pixis::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Pixis::FrameV1, psddl_pds2psana::Pixis::FrameV1<Pds::Pixis::ConfigV1>, Pds::Pixis::FrameV1, Pds::Pixis::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Pixis::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Pixis::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Pixis::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Pixis::FrameV1, psddl_pds2psana::Pixis::FrameV1<Pds::Pixis::ConfigV1>, Pds::Pixis::FrameV1, Pds::Pixis::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Pixis::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Pixis::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_pnCCDconfig:
     {
       switch (version) {
@@ -2996,6 +3059,50 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_UxiConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Uxi::ConfigV1> xptr(xtc, (Pds::Uxi::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Uxi::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Uxi::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_UxiFrame:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Uxi::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Uxi::FrameV1, psddl_pds2psana::Uxi::FrameV1<Pds::Uxi::ConfigV1>, Pds::Uxi::FrameV1, Pds::Uxi::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Uxi::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Uxi::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Uxi::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Uxi::FrameV1, psddl_pds2psana::Uxi::FrameV1<Pds::Uxi::ConfigV1>, Pds::Uxi::FrameV1, Pds::Uxi::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Uxi::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Uxi::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_ZylaConfig:
     {
       switch (version) {
@@ -3149,6 +3256,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Andor::FrameV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_ArchonConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV1) );
       break;
     } // end version switch
     break;
@@ -3825,6 +3939,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     } // end version switch
     break;
+  case Pds::TypeId::Id_PixisConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Pixis::ConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_PixisFrame:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Pixis::FrameV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Pixis::FrameV1) );
+      break;
+    } // end version switch
+    break;
   case Pds::TypeId::Id_pnCCDconfig:
     switch(typeId.version()) {
     case 1:
@@ -4114,6 +4245,23 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::UsdUsb::FexDataV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_UxiConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Uxi::ConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_UxiFrame:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Uxi::FrameV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Uxi::FrameV1) );
       break;
     } // end version switch
     break;
