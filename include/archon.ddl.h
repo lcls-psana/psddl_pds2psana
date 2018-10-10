@@ -54,6 +54,38 @@ private:
   boost::shared_ptr<const XtcType> m_xtcObj;
 };
 
+
+class ConfigV2 : public Psana::Archon::ConfigV2 {
+public:
+  typedef Pds::Archon::ConfigV2 XtcType;
+  typedef Psana::Archon::ConfigV2 PsanaType;
+  ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV2();
+  virtual Psana::Archon::ConfigV2::ReadoutMode readoutMode() const;
+  virtual uint16_t exposureEventCode() const;
+  virtual uint32_t configSize() const;
+  virtual uint32_t preFrameSweepCount() const;
+  virtual uint32_t idleSweepCount() const;
+  virtual uint32_t integrationTime() const;
+  virtual uint32_t nonIntegrationTime() const;
+  virtual uint32_t batches() const;
+  virtual uint32_t pixels() const;
+  virtual uint32_t lines() const;
+  virtual uint32_t horizontalBinning() const;
+  virtual uint32_t verticalBinning() const;
+  virtual uint32_t sensorPixels() const;
+  virtual uint32_t sensorLines() const;
+  virtual uint32_t sensorTaps() const;
+  virtual uint32_t st() const;
+  virtual uint32_t stm1() const;
+  virtual uint32_t at() const;
+  virtual const char* config() const;
+  virtual std::vector<int> config_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
 } // namespace Archon
 } // namespace psddl_pds2psana
 #endif // PSDDL_PDS2PSANA_ARCHON_DDL_H

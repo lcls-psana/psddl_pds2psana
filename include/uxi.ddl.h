@@ -27,6 +27,7 @@ public:
   virtual uint32_t readOnlyPots() const;
   virtual ndarray<const double, 1> pots() const;
   virtual uint8_t potIsReadOnly(uint8_t i) const;
+  virtual uint8_t potIsTuned(uint8_t i) const;
   virtual uint32_t numPixelsPerFrame() const;
   virtual uint32_t numPixels() const;
   virtual uint32_t frameSize() const;

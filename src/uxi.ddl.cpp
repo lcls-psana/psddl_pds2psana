@@ -74,6 +74,11 @@ uint8_t ConfigV1::potIsReadOnly(uint8_t i) const {
 }
 
 
+uint8_t ConfigV1::potIsTuned(uint8_t i) const {
+  return m_xtcObj->potIsTuned(i);
+}
+
+
 uint32_t ConfigV1::numPixelsPerFrame() const {
   return m_xtcObj->numPixelsPerFrame();
 }

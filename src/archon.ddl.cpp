@@ -188,5 +188,119 @@ const char* ConfigV1::config() const {
   return m_xtcObj->config();
 }
 
+Psana::Archon::ConfigV2::ReadoutMode pds_to_psana(Pds::Archon::ConfigV2::ReadoutMode e)
+{
+  return Psana::Archon::ConfigV2::ReadoutMode(e);
+}
+
+ConfigV2::ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Archon::ConfigV2()
+  , m_xtcObj(xtcPtr)
+{
+}
+ConfigV2::~ConfigV2()
+{
+}
+
+
+Psana::Archon::ConfigV2::ReadoutMode ConfigV2::readoutMode() const {
+  return pds_to_psana(m_xtcObj->readoutMode());
+}
+
+
+uint16_t ConfigV2::exposureEventCode() const {
+  return m_xtcObj->exposureEventCode();
+}
+
+
+uint32_t ConfigV2::configSize() const {
+  return m_xtcObj->configSize();
+}
+
+
+uint32_t ConfigV2::preFrameSweepCount() const {
+  return m_xtcObj->preFrameSweepCount();
+}
+
+
+uint32_t ConfigV2::idleSweepCount() const {
+  return m_xtcObj->idleSweepCount();
+}
+
+
+uint32_t ConfigV2::integrationTime() const {
+  return m_xtcObj->integrationTime();
+}
+
+
+uint32_t ConfigV2::nonIntegrationTime() const {
+  return m_xtcObj->nonIntegrationTime();
+}
+
+
+uint32_t ConfigV2::batches() const {
+  return m_xtcObj->batches();
+}
+
+
+uint32_t ConfigV2::pixels() const {
+  return m_xtcObj->pixels();
+}
+
+
+uint32_t ConfigV2::lines() const {
+  return m_xtcObj->lines();
+}
+
+
+uint32_t ConfigV2::horizontalBinning() const {
+  return m_xtcObj->horizontalBinning();
+}
+
+
+uint32_t ConfigV2::verticalBinning() const {
+  return m_xtcObj->verticalBinning();
+}
+
+
+uint32_t ConfigV2::sensorPixels() const {
+  return m_xtcObj->sensorPixels();
+}
+
+
+uint32_t ConfigV2::sensorLines() const {
+  return m_xtcObj->sensorLines();
+}
+
+
+uint32_t ConfigV2::sensorTaps() const {
+  return m_xtcObj->sensorTaps();
+}
+
+
+uint32_t ConfigV2::st() const {
+  return m_xtcObj->st();
+}
+
+
+uint32_t ConfigV2::stm1() const {
+  return m_xtcObj->stm1();
+}
+
+
+uint32_t ConfigV2::at() const {
+  return m_xtcObj->at();
+}
+
+
+const char* ConfigV2::config() const {
+  return m_xtcObj->config();
+}
+
+
+std::vector<int> ConfigV2::config_shape() const {
+  return m_xtcObj->config_shape();
+}
+
 } // namespace Archon
 } // namespace psddl_pds2psana

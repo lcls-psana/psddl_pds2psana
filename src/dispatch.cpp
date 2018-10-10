@@ -309,6 +309,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 2:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Archon::ConfigV2> xptr(xtc, (Pds::Archon::ConfigV2*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Archon::ConfigV2> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV2>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -958,6 +968,54 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_Epix10ka2MConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Epix::Config10ka2MV1, psddl_pds2psana::Epix::Config10ka2MV1, Pds::Epix::Config10ka2MV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Epix::Config10ka2MV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      case 32769:
+        {
+          // store proxy
+          typedef EvtProxy<Psana::Epix::Config10ka2MV1, psddl_pds2psana::Epix::Config10ka2MV1, Pds::Epix::Config10ka2MV1> ProxyType;
+          if (evt) evt->putProxy<Psana::Epix::Config10ka2MV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_Epix10kaArray:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Epix::Config10ka2MV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ArrayV1, psddl_pds2psana::Epix::ArrayV1<Pds::Epix::Config10ka2MV1>, Pds::Epix::ArrayV1, Pds::Epix::Config10ka2MV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ArrayV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ArrayV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Epix::Config10ka2MV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ArrayV1, psddl_pds2psana::Epix::ArrayV1<Pds::Epix::Config10ka2MV1>, Pds::Epix::ArrayV1, Pds::Epix::Config10ka2MV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ArrayV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Epix::ArrayV1 in event because no config object found");
+          }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_Epix10kaConfig:
     {
       switch (version) {
@@ -1053,6 +1111,10 @@ try {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Epix::Config10ka> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config10ka>, Pds::Epix::ElementV3, Pds::Epix::Config10ka> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else if (boost::shared_ptr<Pds::Epix::Config10kaV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config10kaV1>, Pds::Epix::ElementV3, Pds::Epix::Config10kaV1> ProxyType;
@@ -1105,6 +1167,10 @@ try {
           } else if (boost::shared_ptr<Pds::Epix::Config100aV2> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config100aV2>, Pds::Epix::ElementV3, Pds::Epix::Config100aV2> ProxyType;
+            if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Epix::Config10ka> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Epix::ElementV3, psddl_pds2psana::Epix::ElementV3<Pds::Epix::Config10ka>, Pds::Epix::ElementV3, Pds::Epix::Config10ka> ProxyType;
             if (evt) evt->putProxy<Psana::Epix::ElementV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else if (boost::shared_ptr<Pds::Epix::Config10kaV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
@@ -3264,6 +3330,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV1) );
       break;
+    case 2:
+      typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV2) );
+      break;
     } // end version switch
     break;
   case Pds::TypeId::Id_Arraychar:
@@ -3483,6 +3552,26 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::Epix::Config100aV2) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Epix10ka2MConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Epix::Config10ka2MV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Epix::Config10ka2MV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_Epix10kaArray:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Epix::ArrayV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Epix::ArrayV1) );
       break;
     } // end version switch
     break;
