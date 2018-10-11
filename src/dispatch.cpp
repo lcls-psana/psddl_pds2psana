@@ -973,16 +973,12 @@ try {
       switch (version) {
       case 1:
         {
-          // store proxy
-          typedef EvtProxy<Psana::Epix::Config10ka2MV1, psddl_pds2psana::Epix::Config10ka2MV1, Pds::Epix::Config10ka2MV1> ProxyType;
-          if (evt) evt->putProxy<Psana::Epix::Config10ka2MV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
-        }
-        break;
-      case 32769:
-        {
-          // store proxy
-          typedef EvtProxy<Psana::Epix::Config10ka2MV1, psddl_pds2psana::Epix::Config10ka2MV1, Pds::Epix::Config10ka2MV1> ProxyType;
-          if (evt) evt->putProxy<Psana::Epix::Config10ka2MV1>(boost::make_shared<ProxyType>(xtc), xtc->src);
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Epix::Config10ka2MV1> xptr(xtc, (Pds::Epix::Config10ka2MV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Epix::Config10ka2MV1> obj = boost::make_shared<psddl_pds2psana::Epix::Config10ka2MV1>(xptr);
+          cfgStore.put(obj, xtc->src);
         }
         break;
       } // end switch (version)
@@ -3558,9 +3554,6 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
   case Pds::TypeId::Id_Epix10ka2MConfig:
     switch(typeId.version()) {
     case 1:
-      typeIdPtrs.push_back( &typeid(Psana::Epix::Config10ka2MV1) );
-      break;
-    case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Epix::Config10ka2MV1) );
       break;
     } // end version switch
