@@ -86,6 +86,46 @@ private:
   boost::shared_ptr<const XtcType> m_xtcObj;
 };
 
+
+class ConfigV3 : public Psana::Archon::ConfigV3 {
+public:
+  typedef Pds::Archon::ConfigV3 XtcType;
+  typedef Psana::Archon::ConfigV3 PsanaType;
+  ConfigV3(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV3();
+  virtual Psana::Archon::ConfigV3::ReadoutMode readoutMode() const;
+  virtual Psana::Archon::ConfigV3::Switch power() const;
+  virtual uint16_t exposureEventCode() const;
+  virtual uint32_t configSize() const;
+  virtual uint32_t preFrameSweepCount() const;
+  virtual uint32_t idleSweepCount() const;
+  virtual uint32_t integrationTime() const;
+  virtual uint32_t nonIntegrationTime() const;
+  virtual uint32_t batches() const;
+  virtual uint32_t pixels() const;
+  virtual uint32_t lines() const;
+  virtual uint32_t horizontalBinning() const;
+  virtual uint32_t verticalBinning() const;
+  virtual uint32_t sensorPixels() const;
+  virtual uint32_t sensorLines() const;
+  virtual uint32_t sensorTaps() const;
+  virtual uint32_t st() const;
+  virtual uint32_t stm1() const;
+  virtual uint32_t at() const;
+  virtual Psana::Archon::ConfigV3::Switch bias() const;
+  virtual Psana::Archon::ConfigV3::BiasChannelId biasChan() const;
+  virtual float biasVoltage() const;
+  virtual uint32_t configVersion() const;
+  virtual const char* config() const;
+  virtual uint32_t numPixelsX() const;
+  virtual uint32_t numPixelsY() const;
+  virtual uint32_t numPixels() const;
+  virtual std::vector<int> config_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+};
+
 } // namespace Archon
 } // namespace psddl_pds2psana
 #endif // PSDDL_PDS2PSANA_ARCHON_DDL_H

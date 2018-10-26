@@ -63,6 +63,41 @@ const char* ConfigV1::deviceID() const {
   return m_xtcObj->deviceID();
 }
 
+
+uint32_t ConfigV1::pixelWidth() const {
+  return m_xtcObj->pixelWidth();
+}
+
+
+uint32_t ConfigV1::pixelHeight() const {
+  return m_xtcObj->pixelHeight();
+}
+
+
+uint32_t ConfigV1::maxWidth() const {
+  return m_xtcObj->maxWidth();
+}
+
+
+uint32_t ConfigV1::maxHeight() const {
+  return m_xtcObj->maxHeight();
+}
+
+
+uint32_t ConfigV1::width() const {
+  return m_xtcObj->width();
+}
+
+
+uint32_t ConfigV1::height() const {
+  return m_xtcObj->height();
+}
+
+
+uint32_t ConfigV1::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
 Psana::Rayonix::ConfigV2::ReadoutMode pds_to_psana(Pds::Rayonix::ConfigV2::ReadoutMode e)
 {
   return Psana::Rayonix::ConfigV2::ReadoutMode(e);
@@ -120,6 +155,41 @@ Psana::Rayonix::ConfigV2::ReadoutMode ConfigV2::readoutMode() const {
 
 const char* ConfigV2::deviceID() const {
   return m_xtcObj->deviceID();
+}
+
+
+uint32_t ConfigV2::pixelWidth() const {
+  return m_xtcObj->pixelWidth();
+}
+
+
+uint32_t ConfigV2::pixelHeight() const {
+  return m_xtcObj->pixelHeight();
+}
+
+
+uint32_t ConfigV2::maxWidth() const {
+  return m_xtcObj->maxWidth();
+}
+
+
+uint32_t ConfigV2::maxHeight() const {
+  return m_xtcObj->maxHeight();
+}
+
+
+uint32_t ConfigV2::width() const {
+  return m_xtcObj->width();
+}
+
+
+uint32_t ConfigV2::height() const {
+  return m_xtcObj->height();
+}
+
+
+uint32_t ConfigV2::numPixels() const {
+  return m_xtcObj->numPixels();
 }
 
 } // namespace Rayonix

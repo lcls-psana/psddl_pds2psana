@@ -23,6 +23,7 @@
 #include "psddl_pds2psana/control.ddl.h"
 #include "psddl_pds2psana/l3t.ddl.h"
 #include "psddl_pds2psana/pimax.ddl.h"
+#include "psddl_pds2psana/streak.ddl.h"
 #include "psddl_pds2psana/andor.ddl.h"
 #include "psddl_pds2psana/fccd.ddl.h"
 #include "psddl_pds2psana/generic1d.ddl.h"
@@ -316,6 +317,16 @@ try {
           cfgStore.put(xptr, xtc->src);
           // create and store psana object in config store
           boost::shared_ptr<Psana::Archon::ConfigV2> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV2>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      case 3:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Archon::ConfigV3> xptr(xtc, (Pds::Archon::ConfigV3*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Archon::ConfigV3> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV3>(xptr);
           cfgStore.put(obj, xtc->src);
         }
         break;
@@ -2857,6 +2868,22 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_StreakConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Streak::ConfigV1> xptr(xtc, (Pds::Streak::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Streak::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Streak::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_TimepixConfig:
     {
       switch (version) {
@@ -3328,6 +3355,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV2) );
+      break;
+    case 3:
+      typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV3) );
       break;
     } // end version switch
     break;
@@ -4218,6 +4248,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataSpectrometerV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_StreakConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Streak::ConfigV1) );
       break;
     } // end version switch
     break;

@@ -302,5 +302,169 @@ std::vector<int> ConfigV2::config_shape() const {
   return m_xtcObj->config_shape();
 }
 
+Psana::Archon::ConfigV3::ReadoutMode pds_to_psana(Pds::Archon::ConfigV3::ReadoutMode e)
+{
+  return Psana::Archon::ConfigV3::ReadoutMode(e);
+}
+
+Psana::Archon::ConfigV3::Switch pds_to_psana(Pds::Archon::ConfigV3::Switch e)
+{
+  return Psana::Archon::ConfigV3::Switch(e);
+}
+
+Psana::Archon::ConfigV3::BiasChannelId pds_to_psana(Pds::Archon::ConfigV3::BiasChannelId e)
+{
+  return Psana::Archon::ConfigV3::BiasChannelId(e);
+}
+
+ConfigV3::ConfigV3(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Archon::ConfigV3()
+  , m_xtcObj(xtcPtr)
+{
+}
+ConfigV3::~ConfigV3()
+{
+}
+
+
+Psana::Archon::ConfigV3::ReadoutMode ConfigV3::readoutMode() const {
+  return pds_to_psana(m_xtcObj->readoutMode());
+}
+
+
+Psana::Archon::ConfigV3::Switch ConfigV3::power() const {
+  return pds_to_psana(m_xtcObj->power());
+}
+
+
+uint16_t ConfigV3::exposureEventCode() const {
+  return m_xtcObj->exposureEventCode();
+}
+
+
+uint32_t ConfigV3::configSize() const {
+  return m_xtcObj->configSize();
+}
+
+
+uint32_t ConfigV3::preFrameSweepCount() const {
+  return m_xtcObj->preFrameSweepCount();
+}
+
+
+uint32_t ConfigV3::idleSweepCount() const {
+  return m_xtcObj->idleSweepCount();
+}
+
+
+uint32_t ConfigV3::integrationTime() const {
+  return m_xtcObj->integrationTime();
+}
+
+
+uint32_t ConfigV3::nonIntegrationTime() const {
+  return m_xtcObj->nonIntegrationTime();
+}
+
+
+uint32_t ConfigV3::batches() const {
+  return m_xtcObj->batches();
+}
+
+
+uint32_t ConfigV3::pixels() const {
+  return m_xtcObj->pixels();
+}
+
+
+uint32_t ConfigV3::lines() const {
+  return m_xtcObj->lines();
+}
+
+
+uint32_t ConfigV3::horizontalBinning() const {
+  return m_xtcObj->horizontalBinning();
+}
+
+
+uint32_t ConfigV3::verticalBinning() const {
+  return m_xtcObj->verticalBinning();
+}
+
+
+uint32_t ConfigV3::sensorPixels() const {
+  return m_xtcObj->sensorPixels();
+}
+
+
+uint32_t ConfigV3::sensorLines() const {
+  return m_xtcObj->sensorLines();
+}
+
+
+uint32_t ConfigV3::sensorTaps() const {
+  return m_xtcObj->sensorTaps();
+}
+
+
+uint32_t ConfigV3::st() const {
+  return m_xtcObj->st();
+}
+
+
+uint32_t ConfigV3::stm1() const {
+  return m_xtcObj->stm1();
+}
+
+
+uint32_t ConfigV3::at() const {
+  return m_xtcObj->at();
+}
+
+
+Psana::Archon::ConfigV3::Switch ConfigV3::bias() const {
+  return pds_to_psana(m_xtcObj->bias());
+}
+
+
+Psana::Archon::ConfigV3::BiasChannelId ConfigV3::biasChan() const {
+  return pds_to_psana(m_xtcObj->biasChan());
+}
+
+
+float ConfigV3::biasVoltage() const {
+  return m_xtcObj->biasVoltage();
+}
+
+
+uint32_t ConfigV3::configVersion() const {
+  return m_xtcObj->configVersion();
+}
+
+
+const char* ConfigV3::config() const {
+  return m_xtcObj->config();
+}
+
+
+uint32_t ConfigV3::numPixelsX() const {
+  return m_xtcObj->numPixelsX();
+}
+
+
+uint32_t ConfigV3::numPixelsY() const {
+  return m_xtcObj->numPixelsY();
+}
+
+
+uint32_t ConfigV3::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
+
+std::vector<int> ConfigV3::config_shape() const {
+  return m_xtcObj->config_shape();
+}
+
 } // namespace Archon
 } // namespace psddl_pds2psana

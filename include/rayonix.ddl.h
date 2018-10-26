@@ -24,6 +24,13 @@ public:
   virtual uint16_t darkFlag() const;
   virtual Psana::Rayonix::ConfigV1::ReadoutMode readoutMode() const;
   virtual const char* deviceID() const;
+  virtual uint32_t pixelWidth() const;
+  virtual uint32_t pixelHeight() const;
+  virtual uint32_t maxWidth() const;
+  virtual uint32_t maxHeight() const;
+  virtual uint32_t width() const;
+  virtual uint32_t height() const;
+  virtual uint32_t numPixels() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
@@ -45,6 +52,13 @@ public:
   virtual uint16_t darkFlag() const;
   virtual Psana::Rayonix::ConfigV2::ReadoutMode readoutMode() const;
   virtual const char* deviceID() const;
+  virtual uint32_t pixelWidth() const;
+  virtual uint32_t pixelHeight() const;
+  virtual uint32_t maxWidth() const;
+  virtual uint32_t maxHeight() const;
+  virtual uint32_t width() const;
+  virtual uint32_t height() const;
+  virtual uint32_t numPixels() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
