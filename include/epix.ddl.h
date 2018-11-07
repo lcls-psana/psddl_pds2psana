@@ -773,20 +773,23 @@ private:
 };
 
 
-class Config10kaQuadV1 : public Psana::Epix::Config10kaQuadV1 {
+class Config10kaQuad : public Psana::Epix::Config10kaQuad {
 public:
-  typedef Pds::Epix::Config10kaQuadV1 XtcType;
-  typedef Psana::Epix::Config10kaQuadV1 PsanaType;
-  Config10kaQuadV1(const boost::shared_ptr<const XtcType>& xtcPtr);
-  virtual ~Config10kaQuadV1();
+  typedef Pds::Epix::Config10kaQuad XtcType;
+  typedef Psana::Epix::Config10kaQuad PsanaType;
+  Config10kaQuad(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Config10kaQuad();
   virtual uint32_t baseClockFrequency() const;
   virtual uint32_t enableAutomaticRunTrigger() const;
   virtual uint32_t numberOf125MhzTicksPerRunTrigger() const;
+  virtual uint32_t digitalCardId0() const;
+  virtual uint32_t digitalCardId1() const;
   virtual uint32_t dcdcEn() const;
   virtual uint32_t asicAnaEn() const;
   virtual uint32_t asicDigEn() const;
   virtual uint32_t ddrVttEn() const;
   virtual uint32_t trigSrcSel() const;
+  virtual uint32_t vguardDac() const;
   virtual uint32_t acqToAsicR0Delay() const;
   virtual uint32_t asicR0Width() const;
   virtual uint32_t asicR0ToAsicAcq() const;
@@ -833,6 +836,32 @@ private:
 };
 
 
+class Config10kaQuadV1 : public Psana::Epix::Config10kaQuadV1 {
+public:
+  typedef Pds::Epix::Config10kaQuadV1 XtcType;
+  typedef Psana::Epix::Config10kaQuadV1 PsanaType;
+  Config10kaQuadV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Config10kaQuadV1();
+  virtual uint32_t numberOfElements() const;
+  virtual uint32_t numberOfRows() const;
+  virtual uint32_t numberOfReadableRows() const;
+  virtual uint32_t numberOfColumns() const;
+  virtual uint32_t numberOfCalibrationRows() const;
+  virtual uint32_t numberOfEnvironmentalRows() const;
+  virtual uint32_t numberOfAsics() const;
+  virtual const Psana::Epix::PgpEvrConfig& evr() const;
+  virtual const Psana::Epix::Config10kaQuad& quad() const;
+  virtual const Psana::Epix::Config10ka& elemCfg(uint32_t i0) const;
+  virtual std::vector<int> elemCfg_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  psddl_pds2psana::Epix::PgpEvrConfig _evr;
+  psddl_pds2psana::Epix::Config10kaQuad _quad;
+  std::vector< psddl_pds2psana::Epix::Config10ka > _elem;
+};
+
+
 class Config10ka2MV1 : public Psana::Epix::Config10ka2MV1 {
 public:
   typedef Pds::Epix::Config10ka2MV1 XtcType;
@@ -847,7 +876,7 @@ public:
   virtual uint32_t numberOfEnvironmentalRows() const;
   virtual uint32_t numberOfAsics() const;
   virtual const Psana::Epix::PgpEvrConfig& evr() const;
-  virtual const Psana::Epix::Config10kaQuadV1& quad(uint32_t i0) const;
+  virtual const Psana::Epix::Config10kaQuad& quad(uint32_t i0) const;
   virtual const Psana::Epix::Config10ka& elemCfg(uint32_t i0) const;
   virtual std::vector<int> quad_shape() const;
   virtual std::vector<int> elemCfg_shape() const;
@@ -855,7 +884,7 @@ public:
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
   psddl_pds2psana::Epix::PgpEvrConfig _evr;
-  std::vector< psddl_pds2psana::Epix::Config10kaQuadV1 > _quad;
+  std::vector< psddl_pds2psana::Epix::Config10kaQuad > _quad;
   std::vector< psddl_pds2psana::Epix::Config10ka > _elem;
 };
 

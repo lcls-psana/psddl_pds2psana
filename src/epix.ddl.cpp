@@ -3225,8 +3225,8 @@ uint32_t Ad9249Config::frameDelay() const {
   return m_xtcObj->frameDelay();
 }
 
-Config10kaQuadV1::Config10kaQuadV1(const boost::shared_ptr<const XtcType>& xtcPtr)
-  : Psana::Epix::Config10kaQuadV1()
+Config10kaQuad::Config10kaQuad(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Epix::Config10kaQuad()
   , m_xtcObj(xtcPtr)
 {
   {
@@ -3239,241 +3239,322 @@ Config10kaQuadV1::Config10kaQuadV1(const boost::shared_ptr<const XtcType>& xtcPt
     }
   }
 }
+Config10kaQuad::~Config10kaQuad()
+{
+}
+
+
+uint32_t Config10kaQuad::baseClockFrequency() const {
+  return m_xtcObj->baseClockFrequency();
+}
+
+
+uint32_t Config10kaQuad::enableAutomaticRunTrigger() const {
+  return m_xtcObj->enableAutomaticRunTrigger();
+}
+
+
+uint32_t Config10kaQuad::numberOf125MhzTicksPerRunTrigger() const {
+  return m_xtcObj->numberOf125MhzTicksPerRunTrigger();
+}
+
+
+uint32_t Config10kaQuad::digitalCardId0() const {
+  return m_xtcObj->digitalCardId0();
+}
+
+
+uint32_t Config10kaQuad::digitalCardId1() const {
+  return m_xtcObj->digitalCardId1();
+}
+
+
+uint32_t Config10kaQuad::dcdcEn() const {
+  return m_xtcObj->dcdcEn();
+}
+
+
+uint32_t Config10kaQuad::asicAnaEn() const {
+  return m_xtcObj->asicAnaEn();
+}
+
+
+uint32_t Config10kaQuad::asicDigEn() const {
+  return m_xtcObj->asicDigEn();
+}
+
+
+uint32_t Config10kaQuad::ddrVttEn() const {
+  return m_xtcObj->ddrVttEn();
+}
+
+
+uint32_t Config10kaQuad::trigSrcSel() const {
+  return m_xtcObj->trigSrcSel();
+}
+
+
+uint32_t Config10kaQuad::vguardDac() const {
+  return m_xtcObj->vguardDac();
+}
+
+
+uint32_t Config10kaQuad::acqToAsicR0Delay() const {
+  return m_xtcObj->acqToAsicR0Delay();
+}
+
+
+uint32_t Config10kaQuad::asicR0Width() const {
+  return m_xtcObj->asicR0Width();
+}
+
+
+uint32_t Config10kaQuad::asicR0ToAsicAcq() const {
+  return m_xtcObj->asicR0ToAsicAcq();
+}
+
+
+uint32_t Config10kaQuad::asicAcqWidth() const {
+  return m_xtcObj->asicAcqWidth();
+}
+
+
+uint32_t Config10kaQuad::asicAcqLToPPmatL() const {
+  return m_xtcObj->asicAcqLToPPmatL();
+}
+
+
+uint32_t Config10kaQuad::asicPPmatToReadout() const {
+  return m_xtcObj->asicPPmatToReadout();
+}
+
+
+uint32_t Config10kaQuad::asicRoClkHalfT() const {
+  return m_xtcObj->asicRoClkHalfT();
+}
+
+
+uint8_t Config10kaQuad::asicAcqForce() const {
+  return m_xtcObj->asicAcqForce();
+}
+
+
+uint8_t Config10kaQuad::asicR0Force() const {
+  return m_xtcObj->asicR0Force();
+}
+
+
+uint8_t Config10kaQuad::asicPPmatForce() const {
+  return m_xtcObj->asicPPmatForce();
+}
+
+
+uint8_t Config10kaQuad::asicSyncForce() const {
+  return m_xtcObj->asicSyncForce();
+}
+
+
+uint8_t Config10kaQuad::asicRoClkForce() const {
+  return m_xtcObj->asicRoClkForce();
+}
+
+
+uint8_t Config10kaQuad::asicAcqValue() const {
+  return m_xtcObj->asicAcqValue();
+}
+
+
+uint8_t Config10kaQuad::asicR0Value() const {
+  return m_xtcObj->asicR0Value();
+}
+
+
+uint8_t Config10kaQuad::asicPPmatValue() const {
+  return m_xtcObj->asicPPmatValue();
+}
+
+
+uint8_t Config10kaQuad::asicSyncValue() const {
+  return m_xtcObj->asicSyncValue();
+}
+
+
+uint8_t Config10kaQuad::asicRoClkValue() const {
+  return m_xtcObj->asicRoClkValue();
+}
+
+
+uint32_t Config10kaQuad::adcPipelineDelay() const {
+  return m_xtcObj->adcPipelineDelay();
+}
+
+
+uint32_t Config10kaQuad::testData() const {
+  return m_xtcObj->testData();
+}
+
+
+uint8_t Config10kaQuad::scopeEnable() const {
+  return m_xtcObj->scopeEnable();
+}
+
+
+uint8_t Config10kaQuad::scopeTrigEdge() const {
+  return m_xtcObj->scopeTrigEdge();
+}
+
+
+uint8_t Config10kaQuad::scopeTrigChan() const {
+  return m_xtcObj->scopeTrigChan();
+}
+
+
+uint8_t Config10kaQuad::scopeTrigMode() const {
+  return m_xtcObj->scopeTrigMode();
+}
+
+
+uint16_t Config10kaQuad::scopeADCThreshold() const {
+  return m_xtcObj->scopeADCThreshold();
+}
+
+
+uint16_t Config10kaQuad::scopeTrigHoldoff() const {
+  return m_xtcObj->scopeTrigHoldoff();
+}
+
+
+uint16_t Config10kaQuad::scopeTrigOffset() const {
+  return m_xtcObj->scopeTrigOffset();
+}
+
+
+uint16_t Config10kaQuad::scopeTraceLength() const {
+  return m_xtcObj->scopeTraceLength();
+}
+
+
+uint16_t Config10kaQuad::scopeADCsamplesToSkip() const {
+  return m_xtcObj->scopeADCsamplesToSkip();
+}
+
+
+uint8_t Config10kaQuad::scopeChanAwaveformSelect() const {
+  return m_xtcObj->scopeChanAwaveformSelect();
+}
+
+
+uint8_t Config10kaQuad::scopeChanBwaveformSelect() const {
+  return m_xtcObj->scopeChanBwaveformSelect();
+}
+
+
+uint32_t Config10kaQuad::scopeTrigDelay() const {
+  return m_xtcObj->scopeTrigDelay();
+}
+
+const Psana::Epix::Ad9249Config& Config10kaQuad::adc(uint32_t i0) const { return _adc.at(i0); }
+
+uint32_t Config10kaQuad::testChannel() const {
+  return m_xtcObj->testChannel();
+}
+
+
+uint32_t Config10kaQuad::testDataMask() const {
+  return m_xtcObj->testDataMask();
+}
+
+
+uint32_t Config10kaQuad::testPattern() const {
+  return m_xtcObj->testPattern();
+}
+
+
+uint32_t Config10kaQuad::testSamples() const {
+  return m_xtcObj->testSamples();
+}
+
+
+uint32_t Config10kaQuad::testTimeout() const {
+  return m_xtcObj->testTimeout();
+}
+
+
+uint32_t Config10kaQuad::testRequest() const {
+  return m_xtcObj->testRequest();
+}
+
+std::vector<int> Config10kaQuad::adc_shape() const
+{
+  std::vector<int> shape;
+  shape.reserve(1);
+  shape.push_back(_adc.size());
+  return shape;
+}
+
+Config10kaQuadV1::Config10kaQuadV1(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Epix::Config10kaQuadV1()
+  , m_xtcObj(xtcPtr)
+  , _evr(boost::shared_ptr<const Pds::Epix::PgpEvrConfig>(xtcPtr, &xtcPtr->evr()))
+  , _quad(boost::shared_ptr<const Pds::Epix::Config10kaQuad>(xtcPtr, &xtcPtr->quad()))
+{
+  {
+    const std::vector<int>& dims = xtcPtr->elemCfg_shape();
+    _elem.reserve(dims[0]);
+    for (int i0=0; i0 != dims[0]; ++i0) {
+      const Pds::Epix::Config10ka& d = xtcPtr->elemCfg(i0);
+      boost::shared_ptr<const Pds::Epix::Config10ka> dPtr(m_xtcObj, &d);
+      _elem.push_back(psddl_pds2psana::Epix::Config10ka(dPtr));
+    }
+  }
+}
 Config10kaQuadV1::~Config10kaQuadV1()
 {
 }
 
 
-uint32_t Config10kaQuadV1::baseClockFrequency() const {
-  return m_xtcObj->baseClockFrequency();
+uint32_t Config10kaQuadV1::numberOfElements() const {
+  return m_xtcObj->numberOfElements();
 }
 
 
-uint32_t Config10kaQuadV1::enableAutomaticRunTrigger() const {
-  return m_xtcObj->enableAutomaticRunTrigger();
+uint32_t Config10kaQuadV1::numberOfRows() const {
+  return m_xtcObj->numberOfRows();
 }
 
 
-uint32_t Config10kaQuadV1::numberOf125MhzTicksPerRunTrigger() const {
-  return m_xtcObj->numberOf125MhzTicksPerRunTrigger();
+uint32_t Config10kaQuadV1::numberOfReadableRows() const {
+  return m_xtcObj->numberOfReadableRows();
 }
 
 
-uint32_t Config10kaQuadV1::dcdcEn() const {
-  return m_xtcObj->dcdcEn();
+uint32_t Config10kaQuadV1::numberOfColumns() const {
+  return m_xtcObj->numberOfColumns();
 }
 
 
-uint32_t Config10kaQuadV1::asicAnaEn() const {
-  return m_xtcObj->asicAnaEn();
+uint32_t Config10kaQuadV1::numberOfCalibrationRows() const {
+  return m_xtcObj->numberOfCalibrationRows();
 }
 
 
-uint32_t Config10kaQuadV1::asicDigEn() const {
-  return m_xtcObj->asicDigEn();
+uint32_t Config10kaQuadV1::numberOfEnvironmentalRows() const {
+  return m_xtcObj->numberOfEnvironmentalRows();
 }
 
 
-uint32_t Config10kaQuadV1::ddrVttEn() const {
-  return m_xtcObj->ddrVttEn();
+uint32_t Config10kaQuadV1::numberOfAsics() const {
+  return m_xtcObj->numberOfAsics();
 }
 
-
-uint32_t Config10kaQuadV1::trigSrcSel() const {
-  return m_xtcObj->trigSrcSel();
-}
-
-
-uint32_t Config10kaQuadV1::acqToAsicR0Delay() const {
-  return m_xtcObj->acqToAsicR0Delay();
-}
-
-
-uint32_t Config10kaQuadV1::asicR0Width() const {
-  return m_xtcObj->asicR0Width();
-}
-
-
-uint32_t Config10kaQuadV1::asicR0ToAsicAcq() const {
-  return m_xtcObj->asicR0ToAsicAcq();
-}
-
-
-uint32_t Config10kaQuadV1::asicAcqWidth() const {
-  return m_xtcObj->asicAcqWidth();
-}
-
-
-uint32_t Config10kaQuadV1::asicAcqLToPPmatL() const {
-  return m_xtcObj->asicAcqLToPPmatL();
-}
-
-
-uint32_t Config10kaQuadV1::asicPPmatToReadout() const {
-  return m_xtcObj->asicPPmatToReadout();
-}
-
-
-uint32_t Config10kaQuadV1::asicRoClkHalfT() const {
-  return m_xtcObj->asicRoClkHalfT();
-}
-
-
-uint8_t Config10kaQuadV1::asicAcqForce() const {
-  return m_xtcObj->asicAcqForce();
-}
-
-
-uint8_t Config10kaQuadV1::asicR0Force() const {
-  return m_xtcObj->asicR0Force();
-}
-
-
-uint8_t Config10kaQuadV1::asicPPmatForce() const {
-  return m_xtcObj->asicPPmatForce();
-}
-
-
-uint8_t Config10kaQuadV1::asicSyncForce() const {
-  return m_xtcObj->asicSyncForce();
-}
-
-
-uint8_t Config10kaQuadV1::asicRoClkForce() const {
-  return m_xtcObj->asicRoClkForce();
-}
-
-
-uint8_t Config10kaQuadV1::asicAcqValue() const {
-  return m_xtcObj->asicAcqValue();
-}
-
-
-uint8_t Config10kaQuadV1::asicR0Value() const {
-  return m_xtcObj->asicR0Value();
-}
-
-
-uint8_t Config10kaQuadV1::asicPPmatValue() const {
-  return m_xtcObj->asicPPmatValue();
-}
-
-
-uint8_t Config10kaQuadV1::asicSyncValue() const {
-  return m_xtcObj->asicSyncValue();
-}
-
-
-uint8_t Config10kaQuadV1::asicRoClkValue() const {
-  return m_xtcObj->asicRoClkValue();
-}
-
-
-uint32_t Config10kaQuadV1::adcPipelineDelay() const {
-  return m_xtcObj->adcPipelineDelay();
-}
-
-
-uint32_t Config10kaQuadV1::testData() const {
-  return m_xtcObj->testData();
-}
-
-
-uint8_t Config10kaQuadV1::scopeEnable() const {
-  return m_xtcObj->scopeEnable();
-}
-
-
-uint8_t Config10kaQuadV1::scopeTrigEdge() const {
-  return m_xtcObj->scopeTrigEdge();
-}
-
-
-uint8_t Config10kaQuadV1::scopeTrigChan() const {
-  return m_xtcObj->scopeTrigChan();
-}
-
-
-uint8_t Config10kaQuadV1::scopeTrigMode() const {
-  return m_xtcObj->scopeTrigMode();
-}
-
-
-uint16_t Config10kaQuadV1::scopeADCThreshold() const {
-  return m_xtcObj->scopeADCThreshold();
-}
-
-
-uint16_t Config10kaQuadV1::scopeTrigHoldoff() const {
-  return m_xtcObj->scopeTrigHoldoff();
-}
-
-
-uint16_t Config10kaQuadV1::scopeTrigOffset() const {
-  return m_xtcObj->scopeTrigOffset();
-}
-
-
-uint16_t Config10kaQuadV1::scopeTraceLength() const {
-  return m_xtcObj->scopeTraceLength();
-}
-
-
-uint16_t Config10kaQuadV1::scopeADCsamplesToSkip() const {
-  return m_xtcObj->scopeADCsamplesToSkip();
-}
-
-
-uint8_t Config10kaQuadV1::scopeChanAwaveformSelect() const {
-  return m_xtcObj->scopeChanAwaveformSelect();
-}
-
-
-uint8_t Config10kaQuadV1::scopeChanBwaveformSelect() const {
-  return m_xtcObj->scopeChanBwaveformSelect();
-}
-
-
-uint32_t Config10kaQuadV1::scopeTrigDelay() const {
-  return m_xtcObj->scopeTrigDelay();
-}
-
-const Psana::Epix::Ad9249Config& Config10kaQuadV1::adc(uint32_t i0) const { return _adc.at(i0); }
-
-uint32_t Config10kaQuadV1::testChannel() const {
-  return m_xtcObj->testChannel();
-}
-
-
-uint32_t Config10kaQuadV1::testDataMask() const {
-  return m_xtcObj->testDataMask();
-}
-
-
-uint32_t Config10kaQuadV1::testPattern() const {
-  return m_xtcObj->testPattern();
-}
-
-
-uint32_t Config10kaQuadV1::testSamples() const {
-  return m_xtcObj->testSamples();
-}
-
-
-uint32_t Config10kaQuadV1::testTimeout() const {
-  return m_xtcObj->testTimeout();
-}
-
-
-uint32_t Config10kaQuadV1::testRequest() const {
-  return m_xtcObj->testRequest();
-}
-
-std::vector<int> Config10kaQuadV1::adc_shape() const
+const Psana::Epix::PgpEvrConfig& Config10kaQuadV1::evr() const { return _evr; }
+const Psana::Epix::Config10kaQuad& Config10kaQuadV1::quad() const { return _quad; }
+const Psana::Epix::Config10ka& Config10kaQuadV1::elemCfg(uint32_t i0) const { return _elem.at(i0); }
+std::vector<int> Config10kaQuadV1::elemCfg_shape() const
 {
   std::vector<int> shape;
   shape.reserve(1);
-  shape.push_back(_adc.size());
+  shape.push_back(_elem.size());
   return shape;
 }
 
@@ -3486,9 +3567,9 @@ Config10ka2MV1::Config10ka2MV1(const boost::shared_ptr<const XtcType>& xtcPtr)
     const std::vector<int>& dims = xtcPtr->quad_shape();
     _quad.reserve(dims[0]);
     for (int i0=0; i0 != dims[0]; ++i0) {
-      const Pds::Epix::Config10kaQuadV1& d = xtcPtr->quad(i0);
-      boost::shared_ptr<const Pds::Epix::Config10kaQuadV1> dPtr(m_xtcObj, &d);
-      _quad.push_back(psddl_pds2psana::Epix::Config10kaQuadV1(dPtr));
+      const Pds::Epix::Config10kaQuad& d = xtcPtr->quad(i0);
+      boost::shared_ptr<const Pds::Epix::Config10kaQuad> dPtr(m_xtcObj, &d);
+      _quad.push_back(psddl_pds2psana::Epix::Config10kaQuad(dPtr));
     }
   }
   {
@@ -3541,7 +3622,7 @@ uint32_t Config10ka2MV1::numberOfAsics() const {
 }
 
 const Psana::Epix::PgpEvrConfig& Config10ka2MV1::evr() const { return _evr; }
-const Psana::Epix::Config10kaQuadV1& Config10ka2MV1::quad(uint32_t i0) const { return _quad.at(i0); }
+const Psana::Epix::Config10kaQuad& Config10ka2MV1::quad(uint32_t i0) const { return _quad.at(i0); }
 const Psana::Epix::Config10ka& Config10ka2MV1::elemCfg(uint32_t i0) const { return _elem.at(i0); }
 std::vector<int> Config10ka2MV1::quad_shape() const
 {
@@ -3839,5 +3920,6 @@ ndarray<const uint16_t, 1> ArrayV1<Config>::temperatures() const {
 }
 
 template class ArrayV1<Pds::Epix::Config10ka2MV1>;
+template class ArrayV1<Pds::Epix::Config10kaQuadV1>;
 } // namespace Epix
 } // namespace psddl_pds2psana
