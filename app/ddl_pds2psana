@@ -16,7 +16,7 @@ if __name__ == "__main__":
                                                           includeHdf=False,
                                                           includeDecl=False)
 
-    for pkg, subdict in pkgdict.iteritems():
+    for pkg, subdict in pkgdict.items():
         cmd = psddlCmdStart + ' -b pds2psana -I data -E psddl_pds2psana/include' + \
               ' -O psddl_pds2psana/src -i psddl_pds2psana -t psddl_pds2psana' + \
               ' -B psana-inc:psddl_psana -B pdsdata-inc:pdsdata/psddl -B psana-ns:Psana' + \
