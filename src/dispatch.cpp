@@ -42,6 +42,7 @@
 #include "psddl_pds2psana/ipimb.ddl.h"
 #include "psddl_pds2psana/smldata.ddl.h"
 #include "psddl_pds2psana/usdusb.ddl.h"
+#include "psddl_pds2psana/istar.ddl.h"
 #include "psddl_pds2psana/pixis.ddl.h"
 #include "psddl_pds2psana/cspad2x2.ddl.h"
 #include "psddl_pds2psana/andor3d.ddl.h"
@@ -327,6 +328,16 @@ try {
           cfgStore.put(xptr, xtc->src);
           // create and store psana object in config store
           boost::shared_ptr<Psana::Archon::ConfigV3> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV3>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      case 4:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Archon::ConfigV4> xptr(xtc, (Pds::Archon::ConfigV4*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Archon::ConfigV4> obj = boost::make_shared<psddl_pds2psana::Archon::ConfigV4>(xptr);
           cfgStore.put(obj, xtc->src);
         }
         break;
@@ -1887,6 +1898,22 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_iStarConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::iStar::ConfigV1> xptr(xtc, (Pds::iStar::ConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::iStar::ConfigV1> obj = boost::make_shared<psddl_pds2psana::iStar::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_JungfrauConfig:
     {
       switch (version) {
@@ -3237,7 +3264,11 @@ try {
       switch (version) {
       case 1:
         {
-          if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+          if (boost::shared_ptr<Pds::iStar::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::iStar::ConfigV1>, Pds::Zyla::FrameV1, Pds::iStar::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::Zyla::ConfigV1>, Pds::Zyla::FrameV1, Pds::Zyla::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
@@ -3248,7 +3279,11 @@ try {
         break;
       case 32769:
         {
-          if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+          if (boost::shared_ptr<Pds::iStar::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::iStar::ConfigV1>, Pds::Zyla::FrameV1, Pds::iStar::ConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else if (boost::shared_ptr<Pds::Zyla::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
             // store proxy
             typedef EvtProxyCfg<Psana::Zyla::FrameV1, psddl_pds2psana::Zyla::FrameV1<Pds::Zyla::ConfigV1>, Pds::Zyla::FrameV1, Pds::Zyla::ConfigV1> ProxyType;
             if (evt) evt->putProxy<Psana::Zyla::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
@@ -3382,6 +3417,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 3:
       typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV3) );
+      break;
+    case 4:
+      typeIdPtrs.push_back( &typeid(Psana::Archon::ConfigV4) );
       break;
     } // end version switch
     break;
@@ -3937,6 +3975,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::Lusi::IpmFexConfigV2) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_iStarConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::iStar::ConfigV1) );
       break;
     } // end version switch
     break;

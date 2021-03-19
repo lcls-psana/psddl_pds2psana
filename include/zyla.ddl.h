@@ -7,6 +7,7 @@
 #include <boost/shared_ptr.hpp>
 #include "psddl_psana/zyla.ddl.h"
 #include "pdsdata/psddl/zyla.ddl.h"
+#include "psddl_pds2psana/istar.ddl.h"
 namespace psddl_pds2psana {
 namespace Zyla {
 

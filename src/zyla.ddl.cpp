@@ -188,5 +188,6 @@ ndarray<const uint16_t, 2> FrameV1<Config>::data() const {
 }
 
 template class FrameV1<Pds::Zyla::ConfigV1>;
+template class FrameV1<Pds::iStar::ConfigV1>;
 } // namespace Zyla
 } // namespace psddl_pds2psana
