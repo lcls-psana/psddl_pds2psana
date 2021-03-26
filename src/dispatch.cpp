@@ -417,6 +417,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 4:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::ControlData::ConfigV4> xptr(xtc, (Pds::ControlData::ConfigV4*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::ControlData::ConfigV4> obj = boost::make_shared<psddl_pds2psana::ControlData::ConfigV4>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -2259,6 +2269,16 @@ try {
           if (evt) evt->put(boost::make_shared<Psana::Bld::BldDataPhaseCavity>(data), xtc->src);
         }
         break;
+      case 1:
+        {
+          // XTC data object
+          const Pds::Bld::BldDataPhaseCavityV1& xdata = *(Pds::Bld::BldDataPhaseCavityV1*)(xtc->payload());
+          //convert XtcType to Psana type
+          const Psana::Bld::BldDataPhaseCavityV1& data = psddl_pds2psana::Bld::pds_to_psana(xdata);
+          // store data
+          if (evt) evt->put(boost::make_shared<Psana::Bld::BldDataPhaseCavityV1>(data), xtc->src);
+        }
+        break;
       case 32768:
         {
           // XTC data object
@@ -2267,6 +2287,16 @@ try {
           const Psana::Bld::BldDataPhaseCavity& data = psddl_pds2psana::Bld::pds_to_psana(xdata);
           // store data
           if (evt) evt->put(boost::make_shared<Psana::Bld::BldDataPhaseCavity>(data), xtc->src);
+        }
+        break;
+      case 32769:
+        {
+          // XTC data object
+          const Pds::Bld::BldDataPhaseCavityV1& xdata = *(Pds::Bld::BldDataPhaseCavityV1*)(xtc->payload());
+          //convert XtcType to Psana type
+          const Psana::Bld::BldDataPhaseCavityV1& data = psddl_pds2psana::Bld::pds_to_psana(xdata);
+          // store data
+          if (evt) evt->put(boost::make_shared<Psana::Bld::BldDataPhaseCavityV1>(data), xtc->src);
         }
         break;
       } // end switch (version)
@@ -3454,6 +3484,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 3:
       typeIdPtrs.push_back( &typeid(Psana::ControlData::ConfigV3) );
       break;
+    case 4:
+      typeIdPtrs.push_back( &typeid(Psana::ControlData::ConfigV4) );
+      break;
     } // end version switch
     break;
   case Pds::TypeId::Id_ControlsCameraConfig:
@@ -4098,8 +4131,14 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 0:
       typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataPhaseCavity) );
       break;
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataPhaseCavityV1) );
+      break;
     case 32768:
       typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataPhaseCavity) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Bld::BldDataPhaseCavityV1) );
       break;
     } // end version switch
     break;

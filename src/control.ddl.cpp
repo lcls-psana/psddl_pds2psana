@@ -14,14 +14,29 @@ Psana::ControlData::PVControl pds_to_psana(Pds::ControlData::PVControl pds)
   return Psana::ControlData::PVControl(pds.name(), pds.index(), pds.value());
 }
 
+Psana::ControlData::PVControlV1 pds_to_psana(Pds::ControlData::PVControlV1 pds)
+{
+  return Psana::ControlData::PVControlV1(pds.name(), pds.index(), pds.value());
+}
+
 Psana::ControlData::PVMonitor pds_to_psana(Pds::ControlData::PVMonitor pds)
 {
   return Psana::ControlData::PVMonitor(pds.name(), pds.index(), pds.loValue(), pds.hiValue());
 }
 
+Psana::ControlData::PVMonitorV1 pds_to_psana(Pds::ControlData::PVMonitorV1 pds)
+{
+  return Psana::ControlData::PVMonitorV1(pds.name(), pds.index(), pds.loValue(), pds.hiValue());
+}
+
 Psana::ControlData::PVLabel pds_to_psana(Pds::ControlData::PVLabel pds)
 {
   return Psana::ControlData::PVLabel(pds.name(), pds.value());
+}
+
+Psana::ControlData::PVLabelV1 pds_to_psana(Pds::ControlData::PVLabelV1 pds)
+{
+  return Psana::ControlData::PVLabelV1(pds.name(), pds.value());
 }
 
 ConfigV1::ConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr)
@@ -235,5 +250,84 @@ uint32_t ConfigV3::npvLabels() const {
 ndarray<const Psana::ControlData::PVControl, 1> ConfigV3::pvControls() const { return _pvControls_ndarray_storage_; }
 ndarray<const Psana::ControlData::PVMonitor, 1> ConfigV3::pvMonitors() const { return _pvMonitors_ndarray_storage_; }
 ndarray<const Psana::ControlData::PVLabel, 1> ConfigV3::pvLabels() const { return _pvLabels_ndarray_storage_; }
+ConfigV4::ConfigV4(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::ControlData::ConfigV4()
+  , m_xtcObj(xtcPtr)
+  , _duration(xtcPtr->duration())
+{
+  {
+    typedef ndarray<Psana::ControlData::PVControlV1, 1> NDArray;
+    typedef ndarray<const Pds::ControlData::PVControlV1, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->pvControls();
+    _pvControls_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _pvControls_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::ControlData::pds_to_psana(*it);
+    }
+  }
+  {
+    typedef ndarray<Psana::ControlData::PVMonitorV1, 1> NDArray;
+    typedef ndarray<const Pds::ControlData::PVMonitorV1, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->pvMonitors();
+    _pvMonitors_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _pvMonitors_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::ControlData::pds_to_psana(*it);
+    }
+  }
+  {
+    typedef ndarray<Psana::ControlData::PVLabelV1, 1> NDArray;
+    typedef ndarray<const Pds::ControlData::PVLabelV1, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->pvLabels();
+    _pvLabels_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _pvLabels_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::ControlData::pds_to_psana(*it);
+    }
+  }
+}
+ConfigV4::~ConfigV4()
+{
+}
+
+
+uint32_t ConfigV4::events() const {
+  return m_xtcObj->events();
+}
+
+
+uint8_t ConfigV4::uses_l3t_events() const {
+  return m_xtcObj->uses_l3t_events();
+}
+
+
+uint8_t ConfigV4::uses_duration() const {
+  return m_xtcObj->uses_duration();
+}
+
+
+uint8_t ConfigV4::uses_events() const {
+  return m_xtcObj->uses_events();
+}
+
+const Pds::ClockTime& ConfigV4::duration() const { return _duration; }
+
+uint32_t ConfigV4::npvControls() const {
+  return m_xtcObj->npvControls();
+}
+
+
+uint32_t ConfigV4::npvMonitors() const {
+  return m_xtcObj->npvMonitors();
+}
+
+
+uint32_t ConfigV4::npvLabels() const {
+  return m_xtcObj->npvLabels();
+}
+
+ndarray<const Psana::ControlData::PVControlV1, 1> ConfigV4::pvControls() const { return _pvControls_ndarray_storage_; }
+ndarray<const Psana::ControlData::PVMonitorV1, 1> ConfigV4::pvMonitors() const { return _pvMonitors_ndarray_storage_; }
+ndarray<const Psana::ControlData::PVLabelV1, 1> ConfigV4::pvLabels() const { return _pvLabels_ndarray_storage_; }
 } // namespace ControlData
 } // namespace psddl_pds2psana

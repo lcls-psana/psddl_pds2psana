@@ -133,6 +133,11 @@ Psana::Bld::BldDataPhaseCavity pds_to_psana(Pds::Bld::BldDataPhaseCavity pds)
   return Psana::Bld::BldDataPhaseCavity(pds.fitTime1(), pds.fitTime2(), pds.charge1(), pds.charge2());
 }
 
+Psana::Bld::BldDataPhaseCavityV1 pds_to_psana(Pds::Bld::BldDataPhaseCavityV1 pds)
+{
+  return Psana::Bld::BldDataPhaseCavityV1(pds.fitTime1(), pds.fitTime2(), pds.charge1(), pds.charge2());
+}
+
 BldDataIpimbV0::BldDataIpimbV0(const boost::shared_ptr<const XtcType>& xtcPtr)
   : Psana::Bld::BldDataIpimbV0()
   , m_xtcObj(xtcPtr)

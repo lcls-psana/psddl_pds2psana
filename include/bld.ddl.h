@@ -53,6 +53,8 @@ private:
 
 Psana::Bld::BldDataPhaseCavity pds_to_psana(Pds::Bld::BldDataPhaseCavity pds);
 
+Psana::Bld::BldDataPhaseCavityV1 pds_to_psana(Pds::Bld::BldDataPhaseCavityV1 pds);
+
 
 class BldDataIpimbV0 : public Psana::Bld::BldDataIpimbV0 {
 public:
