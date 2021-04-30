@@ -697,12 +697,110 @@ private:
 };
 
 
-class Config10ka : public Psana::Epix::Config10ka {
+class Config10kaV2 : public Psana::Epix::Config10kaV2 {
 public:
-  typedef Pds::Epix::Config10ka XtcType;
-  typedef Psana::Epix::Config10ka PsanaType;
-  Config10ka(const boost::shared_ptr<const XtcType>& xtcPtr);
-  virtual ~Config10ka();
+  typedef Pds::Epix::Config10kaV2 XtcType;
+  typedef Psana::Epix::Config10kaV2 PsanaType;
+  Config10kaV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Config10kaV2();
+  virtual uint32_t version() const;
+  virtual uint32_t usePgpEvr() const;
+  virtual uint32_t evrRunCode() const;
+  virtual uint32_t evrDaqCode() const;
+  virtual uint32_t evrRunTrigDelay() const;
+  virtual uint32_t epixRunTrigDelay() const;
+  virtual uint32_t epixDaqTrigDelay() const;
+  virtual uint32_t dacSetting() const;
+  virtual uint8_t asicGR() const;
+  virtual uint8_t asicAcq() const;
+  virtual uint8_t asicR0() const;
+  virtual uint8_t asicPpmat() const;
+  virtual uint8_t asicPpbe() const;
+  virtual uint8_t asicRoClk() const;
+  virtual uint8_t asicGRControl() const;
+  virtual uint8_t asicAcqControl() const;
+  virtual uint8_t asicR0Control() const;
+  virtual uint8_t asicPpmatControl() const;
+  virtual uint8_t asicPpbeControl() const;
+  virtual uint8_t asicR0ClkControl() const;
+  virtual uint8_t prepulseR0En() const;
+  virtual uint32_t adcStreamMode() const;
+  virtual uint8_t testPatternEnable() const;
+  virtual uint32_t acqToAsicR0Delay() const;
+  virtual uint32_t asicR0ToAsicAcq() const;
+  virtual uint32_t asicAcqWidth() const;
+  virtual uint32_t asicAcqLToPPmatL() const;
+  virtual uint32_t asicPPmatToReadout() const;
+  virtual uint32_t asicRoClkHalfT() const;
+  virtual uint32_t adcClkHalfT() const;
+  virtual uint32_t asicR0Width() const;
+  virtual uint32_t adcPipelineDelay() const;
+  virtual uint32_t adcPipelineDelay0() const;
+  virtual uint32_t adcPipelineDelay1() const;
+  virtual uint32_t adcPipelineDelay2() const;
+  virtual uint32_t adcPipelineDelay3() const;
+  virtual uint16_t SyncWidth() const;
+  virtual uint16_t SyncDelay() const;
+  virtual uint32_t prepulseR0Width() const;
+  virtual uint32_t prepulseR0Delay() const;
+  virtual uint32_t digitalCardId0() const;
+  virtual uint32_t digitalCardId1() const;
+  virtual uint32_t analogCardId0() const;
+  virtual uint32_t analogCardId1() const;
+  virtual uint32_t carrierId0() const;
+  virtual uint32_t carrierId1() const;
+  virtual uint32_t numberOfAsicsPerRow() const;
+  virtual uint32_t numberOfAsicsPerColumn() const;
+  virtual uint32_t numberOfRowsPerAsic() const;
+  virtual uint32_t numberOfReadableRowsPerAsic() const;
+  virtual uint32_t numberOfPixelsPerAsicRow() const;
+  virtual uint32_t calibrationRowCountPerASIC() const;
+  virtual uint32_t environmentalRowCountPerASIC() const;
+  virtual uint32_t baseClockFrequency() const;
+  virtual uint32_t asicMask() const;
+  virtual uint32_t enableAutomaticRunTrigger() const;
+  virtual uint32_t numberOf125MhzTicksPerRunTrigger() const;
+  virtual uint32_t ghostCorrEn() const;
+  virtual uint32_t oversampleEn() const;
+  virtual uint32_t oversampleSize() const;
+  virtual uint8_t scopeEnable() const;
+  virtual uint8_t scopeTrigEdge() const;
+  virtual uint8_t scopeTrigChan() const;
+  virtual uint8_t scopeArmMode() const;
+  virtual uint16_t scopeADCThreshold() const;
+  virtual uint16_t scopeTrigHoldoff() const;
+  virtual uint16_t scopeTrigOffset() const;
+  virtual uint16_t scopeTraceLength() const;
+  virtual uint16_t scopeADCsameplesToSkip() const;
+  virtual uint8_t scopeChanAwaveformSelect() const;
+  virtual uint8_t scopeChanBwaveformSelect() const;
+  virtual const char* firmwareHash() const;
+  virtual const char* firmwareDesc() const;
+  virtual const Psana::Epix::Asic10kaConfigV1& asics(uint32_t i0) const;
+  virtual ndarray<const uint16_t, 2> asicPixelConfigArray() const;
+  virtual ndarray<const uint8_t, 2> calibPixelConfigArray() const;
+  virtual uint32_t numberOfRows() const;
+  virtual uint32_t numberOfReadableRows() const;
+  virtual uint32_t numberOfColumns() const;
+  virtual uint32_t numberOfCalibrationRows() const;
+  virtual uint32_t numberOfEnvironmentalRows() const;
+  virtual uint32_t numberOfAsics() const;
+  virtual std::vector<int> firmwareHash_shape() const;
+  virtual std::vector<int> firmwareDesc_shape() const;
+  virtual std::vector<int> asics_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  std::vector< psddl_pds2psana::Epix::Asic10kaConfigV1 > _asics;
+};
+
+
+class Elem10kaConfigV1 : public Psana::Epix::Elem10kaConfigV1 {
+public:
+  typedef Pds::Epix::Elem10kaConfigV1 XtcType;
+  typedef Psana::Epix::Elem10kaConfigV1 PsanaType;
+  Elem10kaConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Elem10kaConfigV1();
   virtual uint32_t numberOfAsicsPerRow() const;
   virtual uint32_t numberOfAsicsPerColumn() const;
   virtual uint32_t numberOfRowsPerAsic() const;
@@ -773,12 +871,12 @@ private:
 };
 
 
-class Config10kaQuad : public Psana::Epix::Config10kaQuad {
+class Quad10kaConfigV1 : public Psana::Epix::Quad10kaConfigV1 {
 public:
-  typedef Pds::Epix::Config10kaQuad XtcType;
-  typedef Psana::Epix::Config10kaQuad PsanaType;
-  Config10kaQuad(const boost::shared_ptr<const XtcType>& xtcPtr);
-  virtual ~Config10kaQuad();
+  typedef Pds::Epix::Quad10kaConfigV1 XtcType;
+  typedef Psana::Epix::Quad10kaConfigV1 PsanaType;
+  Quad10kaConfigV1(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Quad10kaConfigV1();
   virtual uint32_t baseClockFrequency() const;
   virtual uint32_t enableAutomaticRunTrigger() const;
   virtual uint32_t numberOf125MhzTicksPerRunTrigger() const;
@@ -836,6 +934,79 @@ private:
 };
 
 
+class Quad10kaConfigV2 : public Psana::Epix::Quad10kaConfigV2 {
+public:
+  typedef Pds::Epix::Quad10kaConfigV2 XtcType;
+  typedef Psana::Epix::Quad10kaConfigV2 PsanaType;
+  Quad10kaConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Quad10kaConfigV2();
+  virtual uint32_t baseClockFrequency() const;
+  virtual uint32_t enableAutomaticRunTrigger() const;
+  virtual uint32_t numberOf125MhzTicksPerRunTrigger() const;
+  virtual uint32_t firmwareVersion() const;
+  virtual uint32_t digitalCardId0() const;
+  virtual uint32_t digitalCardId1() const;
+  virtual const char* firmwareHash() const;
+  virtual const char* firmwareDesc() const;
+  virtual uint32_t dcdcEn() const;
+  virtual uint32_t asicAnaEn() const;
+  virtual uint32_t asicDigEn() const;
+  virtual uint32_t ddrVttEn() const;
+  virtual uint32_t trigSrcSel() const;
+  virtual uint32_t vguardDac() const;
+  virtual uint32_t acqToAsicR0Delay() const;
+  virtual uint32_t asicR0Width() const;
+  virtual uint32_t asicR0ToAsicAcq() const;
+  virtual uint32_t asicAcqWidth() const;
+  virtual uint32_t asicAcqLToPPmatL() const;
+  virtual uint32_t asicPPmatToReadout() const;
+  virtual uint32_t asicRoClkHalfT() const;
+  virtual uint8_t asicAcqForce() const;
+  virtual uint8_t asicR0Force() const;
+  virtual uint8_t asicPPmatForce() const;
+  virtual uint8_t asicSyncForce() const;
+  virtual uint8_t asicRoClkForce() const;
+  virtual uint8_t asicAcqValue() const;
+  virtual uint8_t asicR0Value() const;
+  virtual uint8_t asicPPmatValue() const;
+  virtual uint8_t asicSyncValue() const;
+  virtual uint8_t asicRoClkValue() const;
+  virtual uint32_t dummyAcqEn() const;
+  virtual uint32_t asicSyncInjEn() const;
+  virtual uint32_t asicSyncInjDly() const;
+  virtual uint32_t adcPipelineDelay() const;
+  virtual uint32_t testData() const;
+  virtual uint32_t overSampleEn() const;
+  virtual uint32_t overSampleSize() const;
+  virtual uint8_t scopeEnable() const;
+  virtual uint8_t scopeTrigEdge() const;
+  virtual uint8_t scopeTrigChan() const;
+  virtual uint8_t scopeTrigMode() const;
+  virtual uint16_t scopeADCThreshold() const;
+  virtual uint16_t scopeTrigHoldoff() const;
+  virtual uint16_t scopeTrigOffset() const;
+  virtual uint16_t scopeTraceLength() const;
+  virtual uint16_t scopeADCsamplesToSkip() const;
+  virtual uint8_t scopeChanAwaveformSelect() const;
+  virtual uint8_t scopeChanBwaveformSelect() const;
+  virtual uint32_t scopeTrigDelay() const;
+  virtual const Psana::Epix::Ad9249Config& adc(uint32_t i0) const;
+  virtual uint32_t testChannel() const;
+  virtual uint32_t testDataMask() const;
+  virtual uint32_t testPattern() const;
+  virtual uint32_t testSamples() const;
+  virtual uint32_t testTimeout() const;
+  virtual uint32_t testRequest() const;
+  virtual std::vector<int> firmwareHash_shape() const;
+  virtual std::vector<int> firmwareDesc_shape() const;
+  virtual std::vector<int> adc_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  std::vector< psddl_pds2psana::Epix::Ad9249Config > _adc;
+};
+
+
 class Config10kaQuadV1 : public Psana::Epix::Config10kaQuadV1 {
 public:
   typedef Pds::Epix::Config10kaQuadV1 XtcType;
@@ -850,15 +1021,41 @@ public:
   virtual uint32_t numberOfEnvironmentalRows() const;
   virtual uint32_t numberOfAsics() const;
   virtual const Psana::Epix::PgpEvrConfig& evr() const;
-  virtual const Psana::Epix::Config10kaQuad& quad() const;
-  virtual const Psana::Epix::Config10ka& elemCfg(uint32_t i0) const;
+  virtual const Psana::Epix::Quad10kaConfigV1& quad() const;
+  virtual const Psana::Epix::Elem10kaConfigV1& elemCfg(uint32_t i0) const;
   virtual std::vector<int> elemCfg_shape() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
   psddl_pds2psana::Epix::PgpEvrConfig _evr;
-  psddl_pds2psana::Epix::Config10kaQuad _quad;
-  std::vector< psddl_pds2psana::Epix::Config10ka > _elem;
+  psddl_pds2psana::Epix::Quad10kaConfigV1 _quad;
+  std::vector< psddl_pds2psana::Epix::Elem10kaConfigV1 > _elem;
+};
+
+
+class Config10kaQuadV2 : public Psana::Epix::Config10kaQuadV2 {
+public:
+  typedef Pds::Epix::Config10kaQuadV2 XtcType;
+  typedef Psana::Epix::Config10kaQuadV2 PsanaType;
+  Config10kaQuadV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Config10kaQuadV2();
+  virtual uint32_t numberOfElements() const;
+  virtual uint32_t numberOfRows() const;
+  virtual uint32_t numberOfReadableRows() const;
+  virtual uint32_t numberOfColumns() const;
+  virtual uint32_t numberOfCalibrationRows() const;
+  virtual uint32_t numberOfEnvironmentalRows() const;
+  virtual uint32_t numberOfAsics() const;
+  virtual const Psana::Epix::PgpEvrConfig& evr() const;
+  virtual const Psana::Epix::Quad10kaConfigV2& quad() const;
+  virtual const Psana::Epix::Elem10kaConfigV1& elemCfg(uint32_t i0) const;
+  virtual std::vector<int> elemCfg_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  psddl_pds2psana::Epix::PgpEvrConfig _evr;
+  psddl_pds2psana::Epix::Quad10kaConfigV2 _quad;
+  std::vector< psddl_pds2psana::Epix::Elem10kaConfigV1 > _elem;
 };
 
 
@@ -876,16 +1073,43 @@ public:
   virtual uint32_t numberOfEnvironmentalRows() const;
   virtual uint32_t numberOfAsics() const;
   virtual const Psana::Epix::PgpEvrConfig& evr() const;
-  virtual const Psana::Epix::Config10kaQuad& quad(uint32_t i0) const;
-  virtual const Psana::Epix::Config10ka& elemCfg(uint32_t i0) const;
+  virtual const Psana::Epix::Quad10kaConfigV1& quad(uint32_t i0) const;
+  virtual const Psana::Epix::Elem10kaConfigV1& elemCfg(uint32_t i0) const;
   virtual std::vector<int> quad_shape() const;
   virtual std::vector<int> elemCfg_shape() const;
   const XtcType& _xtcObj() const { return *m_xtcObj; }
 private:
   boost::shared_ptr<const XtcType> m_xtcObj;
   psddl_pds2psana::Epix::PgpEvrConfig _evr;
-  std::vector< psddl_pds2psana::Epix::Config10kaQuad > _quad;
-  std::vector< psddl_pds2psana::Epix::Config10ka > _elem;
+  std::vector< psddl_pds2psana::Epix::Quad10kaConfigV1 > _quad;
+  std::vector< psddl_pds2psana::Epix::Elem10kaConfigV1 > _elem;
+};
+
+
+class Config10ka2MV2 : public Psana::Epix::Config10ka2MV2 {
+public:
+  typedef Pds::Epix::Config10ka2MV2 XtcType;
+  typedef Psana::Epix::Config10ka2MV2 PsanaType;
+  Config10ka2MV2(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~Config10ka2MV2();
+  virtual uint32_t numberOfElements() const;
+  virtual uint32_t numberOfRows() const;
+  virtual uint32_t numberOfReadableRows() const;
+  virtual uint32_t numberOfColumns() const;
+  virtual uint32_t numberOfCalibrationRows() const;
+  virtual uint32_t numberOfEnvironmentalRows() const;
+  virtual uint32_t numberOfAsics() const;
+  virtual const Psana::Epix::PgpEvrConfig& evr() const;
+  virtual const Psana::Epix::Quad10kaConfigV2& quad(uint32_t i0) const;
+  virtual const Psana::Epix::Elem10kaConfigV1& elemCfg(uint32_t i0) const;
+  virtual std::vector<int> quad_shape() const;
+  virtual std::vector<int> elemCfg_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  psddl_pds2psana::Epix::PgpEvrConfig _evr;
+  std::vector< psddl_pds2psana::Epix::Quad10kaConfigV2 > _quad;
+  std::vector< psddl_pds2psana::Epix::Elem10kaConfigV1 > _elem;
 };
 
 
