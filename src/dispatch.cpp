@@ -37,6 +37,7 @@
 #include "psddl_pds2psana/opal1k.ddl.h"
 #include "psddl_pds2psana/camera.ddl.h"
 #include "psddl_pds2psana/jungfrau.ddl.h"
+#include "psddl_pds2psana/vimba.ddl.h"
 #include "psddl_pds2psana/timetool.ddl.h"
 #include "psddl_pds2psana/alias.ddl.h"
 #include "psddl_pds2psana/ipimb.ddl.h"
@@ -166,6 +167,22 @@ try {
           cfgStore.put(xptr, xtc->src);
           // create and store psana object in config store
           boost::shared_ptr<Psana::Alias::ConfigV1> obj = boost::make_shared<psddl_pds2psana::Alias::ConfigV1>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
+  case Pds::TypeId::Id_AlviumConfig:
+    {
+      switch (version) {
+      case 1:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::Vimba::AlviumConfigV1> xptr(xtc, (Pds::Vimba::AlviumConfigV1*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::Vimba::AlviumConfigV1> obj = boost::make_shared<psddl_pds2psana::Vimba::AlviumConfigV1>(xptr);
           cfgStore.put(obj, xtc->src);
         }
         break;
@@ -3319,6 +3336,34 @@ try {
       } // end switch (version)
     }
     break;
+  case Pds::TypeId::Id_VimbaFrame:
+    {
+      switch (version) {
+      case 1:
+        {
+          if (boost::shared_ptr<Pds::Vimba::AlviumConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Vimba::FrameV1, psddl_pds2psana::Vimba::FrameV1<Pds::Vimba::AlviumConfigV1>, Pds::Vimba::FrameV1, Pds::Vimba::AlviumConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Vimba::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Vimba::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      case 32769:
+        {
+          if (boost::shared_ptr<Pds::Vimba::AlviumConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::Vimba::FrameV1, psddl_pds2psana::Vimba::FrameV1<Pds::Vimba::AlviumConfigV1>, Pds::Vimba::FrameV1, Pds::Vimba::AlviumConfigV1> ProxyType;
+            if (evt) evt->putProxy<Psana::Vimba::FrameV1>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::Vimba::FrameV1 in event because no config object found");
+          }
+        }
+        break;
+      } // end switch (version)
+    }
+    break;
   case Pds::TypeId::Id_ZylaConfig:
     {
       switch (version) {
@@ -3433,6 +3478,13 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     switch(typeId.version()) {
     case 1:
       typeIdPtrs.push_back( &typeid(Psana::Alias::ConfigV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_AlviumConfig:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Vimba::AlviumConfigV1) );
       break;
     } // end version switch
     break;
@@ -4551,6 +4603,16 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
       break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::Uxi::FrameV1) );
+      break;
+    } // end version switch
+    break;
+  case Pds::TypeId::Id_VimbaFrame:
+    switch(typeId.version()) {
+    case 1:
+      typeIdPtrs.push_back( &typeid(Psana::Vimba::FrameV1) );
+      break;
+    case 32769:
+      typeIdPtrs.push_back( &typeid(Psana::Vimba::FrameV1) );
       break;
     } // end version switch
     break;
