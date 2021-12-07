@@ -3121,6 +3121,16 @@ try {
           cfgStore.put(obj, xtc->src);
         }
         break;
+      case 3:
+        {
+          // store XTC object in config store
+          boost::shared_ptr<Pds::TimeTool::ConfigV3> xptr(xtc, (Pds::TimeTool::ConfigV3*)(xtc->payload()));
+          cfgStore.put(xptr, xtc->src);
+          // create and store psana object in config store
+          boost::shared_ptr<Psana::TimeTool::ConfigV3> obj = boost::make_shared<psddl_pds2psana::TimeTool::ConfigV3>(xptr);
+          cfgStore.put(obj, xtc->src);
+        }
+        break;
       } // end switch (version)
     }
     break;
@@ -3149,6 +3159,17 @@ try {
           }
         }
         break;
+      case 3:
+        {
+          if (boost::shared_ptr<Pds::TimeTool::ConfigV3> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::TimeTool::DataV3, psddl_pds2psana::TimeTool::DataV3<Pds::TimeTool::ConfigV3>, Pds::TimeTool::DataV3, Pds::TimeTool::ConfigV3> ProxyType;
+            if (evt) evt->putProxy<Psana::TimeTool::DataV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV3 in event because no config object found");
+          }
+        }
+        break;
       case 32769:
         {
           if (boost::shared_ptr<Pds::TimeTool::ConfigV1> cfgPtr = cfgStore.get(xtc->src)) {
@@ -3168,6 +3189,17 @@ try {
             if (evt) evt->putProxy<Psana::TimeTool::DataV2>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
           } else {
             MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV2 in event because no config object found");
+          }
+        }
+        break;
+      case 32771:
+        {
+          if (boost::shared_ptr<Pds::TimeTool::ConfigV3> cfgPtr = cfgStore.get(xtc->src)) {
+            // store proxy
+            typedef EvtProxyCfg<Psana::TimeTool::DataV3, psddl_pds2psana::TimeTool::DataV3<Pds::TimeTool::ConfigV3>, Pds::TimeTool::DataV3, Pds::TimeTool::ConfigV3> ProxyType;
+            if (evt) evt->putProxy<Psana::TimeTool::DataV3>(boost::make_shared<ProxyType>(xtc, cfgPtr), xtc->src);
+          } else {
+            MsgLog("xtcDispatch", trace, "not storing Psana::TimeTool::DataV3 in event because no config object found");
           }
         }
         break;
@@ -4517,6 +4549,9 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::TimeTool::ConfigV2) );
       break;
+    case 3:
+      typeIdPtrs.push_back( &typeid(Psana::TimeTool::ConfigV3) );
+      break;
     } // end version switch
     break;
   case Pds::TypeId::Id_TimeToolData:
@@ -4527,11 +4562,17 @@ std::vector<const std::type_info *> getXtcConvertTypeInfoPtrs(const Pds::TypeId 
     case 2:
       typeIdPtrs.push_back( &typeid(Psana::TimeTool::DataV2) );
       break;
+    case 3:
+      typeIdPtrs.push_back( &typeid(Psana::TimeTool::DataV3) );
+      break;
     case 32769:
       typeIdPtrs.push_back( &typeid(Psana::TimeTool::DataV1) );
       break;
     case 32770:
       typeIdPtrs.push_back( &typeid(Psana::TimeTool::DataV2) );
+      break;
+    case 32771:
+      typeIdPtrs.push_back( &typeid(Psana::TimeTool::DataV3) );
       break;
     } // end version switch
     break;

@@ -301,6 +301,229 @@ std::vector<int> ConfigV2::base_name_shape() const {
   return m_xtcObj->base_name_shape();
 }
 
+Psana::TimeTool::ConfigV3::Axis pds_to_psana(Pds::TimeTool::ConfigV3::Axis e)
+{
+  return Psana::TimeTool::ConfigV3::Axis(e);
+}
+
+ConfigV3::ConfigV3(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::TimeTool::ConfigV3()
+  , m_xtcObj(xtcPtr)
+  , _sig_roi_lo(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->sig_roi_lo()))
+  , _sig_roi_hi(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->sig_roi_hi()))
+  , _sb_roi_lo(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->sb_roi_lo()))
+  , _sb_roi_hi(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->sb_roi_hi()))
+  , _ref_roi_lo(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->ref_roi_lo()))
+  , _ref_roi_hi(psddl_pds2psana::Camera::pds_to_psana(xtcPtr->ref_roi_hi()))
+{
+  {
+    typedef ndarray<Psana::TimeTool::EventLogic, 1> NDArray;
+    typedef ndarray<const Pds::TimeTool::EventLogic, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->beam_logic();
+    _beam_logic_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _beam_logic_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::TimeTool::pds_to_psana(*it);
+    }
+  }
+  {
+    typedef ndarray<Psana::TimeTool::EventLogic, 1> NDArray;
+    typedef ndarray<const Pds::TimeTool::EventLogic, 1> XtcNDArray;
+    const XtcNDArray& xtc_ndarr = xtcPtr->laser_logic();
+    _laser_logic_ndarray_storage_ = NDArray(xtc_ndarr.shape());
+    NDArray::iterator out = _laser_logic_ndarray_storage_.begin();
+    for (XtcNDArray::iterator it = xtc_ndarr.begin(); it != xtc_ndarr.end(); ++ it, ++ out) {
+      *out = psddl_pds2psana::TimeTool::pds_to_psana(*it);
+    }
+  }
+}
+ConfigV3::~ConfigV3()
+{
+}
+
+
+Psana::TimeTool::ConfigV3::Axis ConfigV3::project_axis() const {
+  return pds_to_psana(m_xtcObj->project_axis());
+}
+
+
+uint8_t ConfigV3::use_full_roi() const {
+  return m_xtcObj->use_full_roi();
+}
+
+
+uint8_t ConfigV3::use_fit() const {
+  return m_xtcObj->use_fit();
+}
+
+
+uint8_t ConfigV3::write_image() const {
+  return m_xtcObj->write_image();
+}
+
+
+uint8_t ConfigV3::write_projections() const {
+  return m_xtcObj->write_projections();
+}
+
+
+uint8_t ConfigV3::subtract_sideband() const {
+  return m_xtcObj->subtract_sideband();
+}
+
+
+uint8_t ConfigV3::use_reference_roi() const {
+  return m_xtcObj->use_reference_roi();
+}
+
+
+uint16_t ConfigV3::number_of_weights() const {
+  return m_xtcObj->number_of_weights();
+}
+
+
+uint8_t ConfigV3::calib_poly_dim() const {
+  return m_xtcObj->calib_poly_dim();
+}
+
+
+uint8_t ConfigV3::fit_params_dim() const {
+  return m_xtcObj->fit_params_dim();
+}
+
+
+uint8_t ConfigV3::base_name_length() const {
+  return m_xtcObj->base_name_length();
+}
+
+
+uint16_t ConfigV3::number_of_beam_event_codes() const {
+  return m_xtcObj->number_of_beam_event_codes();
+}
+
+
+uint16_t ConfigV3::number_of_laser_event_codes() const {
+  return m_xtcObj->number_of_laser_event_codes();
+}
+
+
+uint32_t ConfigV3::signal_cut() const {
+  return m_xtcObj->signal_cut();
+}
+
+
+uint32_t ConfigV3::fit_max_iterations() const {
+  return m_xtcObj->fit_max_iterations();
+}
+
+
+double ConfigV3::fit_weights_factor() const {
+  return m_xtcObj->fit_weights_factor();
+}
+
+const Psana::Camera::FrameCoord& ConfigV3::sig_roi_lo() const { return _sig_roi_lo; }
+const Psana::Camera::FrameCoord& ConfigV3::sig_roi_hi() const { return _sig_roi_hi; }
+const Psana::Camera::FrameCoord& ConfigV3::sb_roi_lo() const { return _sb_roi_lo; }
+const Psana::Camera::FrameCoord& ConfigV3::sb_roi_hi() const { return _sb_roi_hi; }
+
+double ConfigV3::sb_convergence() const {
+  return m_xtcObj->sb_convergence();
+}
+
+const Psana::Camera::FrameCoord& ConfigV3::ref_roi_lo() const { return _ref_roi_lo; }
+const Psana::Camera::FrameCoord& ConfigV3::ref_roi_hi() const { return _ref_roi_hi; }
+
+double ConfigV3::ref_convergence() const {
+  return m_xtcObj->ref_convergence();
+}
+
+ndarray<const Psana::TimeTool::EventLogic, 1> ConfigV3::beam_logic() const { return _beam_logic_ndarray_storage_; }
+ndarray<const Psana::TimeTool::EventLogic, 1> ConfigV3::laser_logic() const { return _laser_logic_ndarray_storage_; }
+
+ndarray<const double, 1> ConfigV3::weights() const {
+  return m_xtcObj->weights(m_xtcObj);
+}
+
+
+ndarray<const double, 1> ConfigV3::calib_poly() const {
+  return m_xtcObj->calib_poly(m_xtcObj);
+}
+
+
+ndarray<const double, 1> ConfigV3::fit_params() const {
+  return m_xtcObj->fit_params(m_xtcObj);
+}
+
+
+const char* ConfigV3::base_name() const {
+  return m_xtcObj->base_name();
+}
+
+
+uint32_t ConfigV3::signal_projection_size() const {
+  return m_xtcObj->signal_projection_size();
+}
+
+
+uint32_t ConfigV3::sideband_projection_size() const {
+  return m_xtcObj->sideband_projection_size();
+}
+
+
+uint32_t ConfigV3::reference_projection_size() const {
+  return m_xtcObj->reference_projection_size();
+}
+
+
+uint32_t ConfigV3::signal_x_size() const {
+  return m_xtcObj->signal_x_size();
+}
+
+
+uint32_t ConfigV3::signal_y_size() const {
+  return m_xtcObj->signal_y_size();
+}
+
+
+uint32_t ConfigV3::signal_size() const {
+  return m_xtcObj->signal_size();
+}
+
+
+uint32_t ConfigV3::sideband_x_size() const {
+  return m_xtcObj->sideband_x_size();
+}
+
+
+uint32_t ConfigV3::sideband_y_size() const {
+  return m_xtcObj->sideband_y_size();
+}
+
+
+uint32_t ConfigV3::sideband_size() const {
+  return m_xtcObj->sideband_size();
+}
+
+
+uint32_t ConfigV3::reference_x_size() const {
+  return m_xtcObj->reference_x_size();
+}
+
+
+uint32_t ConfigV3::reference_y_size() const {
+  return m_xtcObj->reference_y_size();
+}
+
+
+uint32_t ConfigV3::reference_size() const {
+  return m_xtcObj->reference_size();
+}
+
+
+std::vector<int> ConfigV3::base_name_shape() const {
+  return m_xtcObj->base_name_shape();
+}
+
 Psana::TimeTool::DataV1::EventType pds_to_psana(Pds::TimeTool::DataV1::EventType e)
 {
   return Psana::TimeTool::DataV1::EventType(e);
@@ -451,5 +674,101 @@ ndarray<const int32_t, 1> DataV2<Config>::projected_reference() const {
 }
 
 template class DataV2<Pds::TimeTool::ConfigV2>;
+Psana::TimeTool::DataV3::EventType pds_to_psana(Pds::TimeTool::DataV3::EventType e)
+{
+  return Psana::TimeTool::DataV3::EventType(e);
+}
+
+template <typename Config>
+DataV3<Config>::DataV3(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
+  : Psana::TimeTool::DataV3()
+  , m_xtcObj(xtcPtr)
+  , m_cfgPtr(cfgPtr)
+{
+}
+template <typename Config>
+DataV3<Config>::~DataV3()
+{
+}
+
+
+template <typename Config>
+Psana::TimeTool::DataV3::EventType DataV3<Config>::event_type() const {
+  return pds_to_psana(m_xtcObj->event_type());
+}
+
+
+template <typename Config>
+double DataV3<Config>::amplitude() const {
+  return m_xtcObj->amplitude();
+}
+
+
+template <typename Config>
+double DataV3<Config>::position_pixel() const {
+  return m_xtcObj->position_pixel();
+}
+
+
+template <typename Config>
+double DataV3<Config>::position_time() const {
+  return m_xtcObj->position_time();
+}
+
+
+template <typename Config>
+double DataV3<Config>::position_fwhm() const {
+  return m_xtcObj->position_fwhm();
+}
+
+
+template <typename Config>
+double DataV3<Config>::ref_amplitude() const {
+  return m_xtcObj->ref_amplitude();
+}
+
+
+template <typename Config>
+double DataV3<Config>::nxt_amplitude() const {
+  return m_xtcObj->nxt_amplitude();
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 1> DataV3<Config>::projected_signal() const {
+  return m_xtcObj->projected_signal(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 1> DataV3<Config>::projected_sideband() const {
+  return m_xtcObj->projected_sideband(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 1> DataV3<Config>::projected_reference() const {
+  return m_xtcObj->projected_reference(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 2> DataV3<Config>::full_signal() const {
+  return m_xtcObj->full_signal(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 2> DataV3<Config>::full_sideband() const {
+  return m_xtcObj->full_sideband(*m_cfgPtr, m_xtcObj);
+}
+
+
+template <typename Config>
+ndarray<const int32_t, 2> DataV3<Config>::full_reference() const {
+  return m_xtcObj->full_reference(*m_cfgPtr, m_xtcObj);
+}
+
+template class DataV3<Pds::TimeTool::ConfigV3>;
 } // namespace TimeTool
 } // namespace psddl_pds2psana
