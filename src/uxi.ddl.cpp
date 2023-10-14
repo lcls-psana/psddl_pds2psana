@@ -93,6 +93,109 @@ uint32_t ConfigV1::frameSize() const {
   return m_xtcObj->frameSize();
 }
 
+Psana::Uxi::RoiCoord pds_to_psana(Pds::Uxi::RoiCoord pds)
+{
+  return Psana::Uxi::RoiCoord(pds.first(), pds.last());
+}
+
+Psana::Uxi::ConfigV2::RoiMode pds_to_psana(Pds::Uxi::ConfigV2::RoiMode e)
+{
+  return Psana::Uxi::ConfigV2::RoiMode(e);
+}
+
+ConfigV2::ConfigV2(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Uxi::ConfigV2()
+  , m_xtcObj(xtcPtr)
+  , _roiRows(psddl_pds2psana::Uxi::pds_to_psana(xtcPtr->roiRows()))
+  , _roiFrames(psddl_pds2psana::Uxi::pds_to_psana(xtcPtr->roiFrames()))
+{
+}
+ConfigV2::~ConfigV2()
+{
+}
+
+
+Psana::Uxi::ConfigV2::RoiMode ConfigV2::roiEnable() const {
+  return pds_to_psana(m_xtcObj->roiEnable());
+}
+
+const Psana::Uxi::RoiCoord& ConfigV2::roiRows() const { return _roiRows; }
+const Psana::Uxi::RoiCoord& ConfigV2::roiFrames() const { return _roiFrames; }
+
+uint32_t ConfigV2::width() const {
+  return m_xtcObj->width();
+}
+
+
+uint32_t ConfigV2::height() const {
+  return m_xtcObj->height();
+}
+
+
+uint32_t ConfigV2::numberOfFrames() const {
+  return m_xtcObj->numberOfFrames();
+}
+
+
+uint32_t ConfigV2::numberOFBytesPerPixel() const {
+  return m_xtcObj->numberOFBytesPerPixel();
+}
+
+
+uint32_t ConfigV2::sensorType() const {
+  return m_xtcObj->sensorType();
+}
+
+
+ndarray<const uint32_t, 1> ConfigV2::timeOn() const {
+  return m_xtcObj->timeOn(m_xtcObj);
+}
+
+
+ndarray<const uint32_t, 1> ConfigV2::timeOff() const {
+  return m_xtcObj->timeOff(m_xtcObj);
+}
+
+
+ndarray<const uint32_t, 1> ConfigV2::delay() const {
+  return m_xtcObj->delay(m_xtcObj);
+}
+
+
+uint32_t ConfigV2::readOnlyPots() const {
+  return m_xtcObj->readOnlyPots();
+}
+
+
+ndarray<const double, 1> ConfigV2::pots() const {
+  return m_xtcObj->pots(m_xtcObj);
+}
+
+
+uint8_t ConfigV2::potIsReadOnly(uint8_t i) const {
+  return m_xtcObj->potIsReadOnly(i);
+}
+
+
+uint8_t ConfigV2::potIsTuned(uint8_t i) const {
+  return m_xtcObj->potIsTuned(i);
+}
+
+
+uint32_t ConfigV2::numPixelsPerFrame() const {
+  return m_xtcObj->numPixelsPerFrame();
+}
+
+
+uint32_t ConfigV2::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
+
+uint32_t ConfigV2::frameSize() const {
+  return m_xtcObj->frameSize();
+}
+
 template <typename Config>
 FrameV1<Config>::FrameV1(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
   : Psana::Uxi::FrameV1()
@@ -130,5 +233,6 @@ ndarray<const uint16_t, 3> FrameV1<Config>::frames() const {
 }
 
 template class FrameV1<Pds::Uxi::ConfigV1>;
+template class FrameV1<Pds::Uxi::ConfigV2>;
 } // namespace Uxi
 } // namespace psddl_pds2psana
