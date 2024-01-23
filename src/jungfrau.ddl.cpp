@@ -348,6 +348,138 @@ std::vector<int> ConfigV3::moduleConfig_shape() const
   return shape;
 }
 
+Psana::Jungfrau::ConfigV4::GainMode pds_to_psana(Pds::Jungfrau::ConfigV4::GainMode e)
+{
+  return Psana::Jungfrau::ConfigV4::GainMode(e);
+}
+
+Psana::Jungfrau::ConfigV4::SpeedMode pds_to_psana(Pds::Jungfrau::ConfigV4::SpeedMode e)
+{
+  return Psana::Jungfrau::ConfigV4::SpeedMode(e);
+}
+
+ConfigV4::ConfigV4(const boost::shared_ptr<const XtcType>& xtcPtr)
+  : Psana::Jungfrau::ConfigV4()
+  , m_xtcObj(xtcPtr)
+{
+  {
+    const std::vector<int>& dims = xtcPtr->moduleConfig_shape();
+    _moduleConfig.reserve(dims[0]);
+    for (int i0=0; i0 != dims[0]; ++i0) {
+      const Pds::Jungfrau::ModuleConfigV1& d = xtcPtr->moduleConfig(i0);
+      boost::shared_ptr<const Pds::Jungfrau::ModuleConfigV1> dPtr(m_xtcObj, &d);
+      _moduleConfig.push_back(psddl_pds2psana::Jungfrau::ModuleConfigV1(dPtr));
+    }
+  }
+}
+ConfigV4::~ConfigV4()
+{
+}
+
+
+uint32_t ConfigV4::numberOfModules() const {
+  return m_xtcObj->numberOfModules();
+}
+
+
+uint32_t ConfigV4::numberOfRowsPerModule() const {
+  return m_xtcObj->numberOfRowsPerModule();
+}
+
+
+uint32_t ConfigV4::numberOfColumnsPerModule() const {
+  return m_xtcObj->numberOfColumnsPerModule();
+}
+
+
+uint32_t ConfigV4::biasVoltage() const {
+  return m_xtcObj->biasVoltage();
+}
+
+
+Psana::Jungfrau::ConfigV4::GainMode ConfigV4::gainMode() const {
+  return pds_to_psana(m_xtcObj->gainMode());
+}
+
+
+Psana::Jungfrau::ConfigV4::SpeedMode ConfigV4::speedMode() const {
+  return pds_to_psana(m_xtcObj->speedMode());
+}
+
+
+double ConfigV4::triggerDelay() const {
+  return m_xtcObj->triggerDelay();
+}
+
+
+double ConfigV4::exposureTime() const {
+  return m_xtcObj->exposureTime();
+}
+
+
+double ConfigV4::exposurePeriod() const {
+  return m_xtcObj->exposurePeriod();
+}
+
+
+uint16_t ConfigV4::vb_ds() const {
+  return m_xtcObj->vb_ds();
+}
+
+
+uint16_t ConfigV4::vb_comp() const {
+  return m_xtcObj->vb_comp();
+}
+
+
+uint16_t ConfigV4::vb_pixbuf() const {
+  return m_xtcObj->vb_pixbuf();
+}
+
+
+uint16_t ConfigV4::vref_ds() const {
+  return m_xtcObj->vref_ds();
+}
+
+
+uint16_t ConfigV4::vref_comp() const {
+  return m_xtcObj->vref_comp();
+}
+
+
+uint16_t ConfigV4::vref_prech() const {
+  return m_xtcObj->vref_prech();
+}
+
+
+uint16_t ConfigV4::vin_com() const {
+  return m_xtcObj->vin_com();
+}
+
+
+uint16_t ConfigV4::vdd_prot() const {
+  return m_xtcObj->vdd_prot();
+}
+
+const Psana::Jungfrau::ModuleConfigV1& ConfigV4::moduleConfig(uint32_t i0) const { return _moduleConfig.at(i0); }
+
+uint32_t ConfigV4::frameSize() const {
+  return m_xtcObj->frameSize();
+}
+
+
+uint32_t ConfigV4::numPixels() const {
+  return m_xtcObj->numPixels();
+}
+
+std::vector<int> ConfigV4::moduleConfig_shape() const
+{
+  std::vector<int> shape;
+  shape.reserve(1);
+  shape.push_back(_moduleConfig.size());
+  return shape;
+}
+
 ModuleInfoV1::ModuleInfoV1(const boost::shared_ptr<const XtcType>& xtcPtr)
   : Psana::Jungfrau::ModuleInfoV1()
   , m_xtcObj(xtcPtr)
@@ -426,6 +558,7 @@ ndarray<const uint16_t, 3> ElementV1<Config>::frame() const {
 template class ElementV1<Pds::Jungfrau::ConfigV1>;
 template class ElementV1<Pds::Jungfrau::ConfigV2>;
 template class ElementV1<Pds::Jungfrau::ConfigV3>;
+template class ElementV1<Pds::Jungfrau::ConfigV4>;
 template <typename Config>
 ElementV2<Config>::ElementV2(const boost::shared_ptr<const XtcType>& xtcPtr, const boost::shared_ptr<const Config>& cfgPtr)
   : Psana::Jungfrau::ElementV2()
@@ -485,5 +618,6 @@ std::vector<int> ElementV2<Config>::moduleInfo_shape() const
 template class ElementV2<Pds::Jungfrau::ConfigV1>;
 template class ElementV2<Pds::Jungfrau::ConfigV2>;
 template class ElementV2<Pds::Jungfrau::ConfigV3>;
+template class ElementV2<Pds::Jungfrau::ConfigV4>;
 } // namespace Jungfrau
 } // namespace psddl_pds2psana

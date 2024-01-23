@@ -71,6 +71,39 @@ private:
 };
 
 
+class ConfigV3 : public Psana::Uxi::ConfigV3 {
+public:
+  typedef Pds::Uxi::ConfigV3 XtcType;
+  typedef Psana::Uxi::ConfigV3 PsanaType;
+  ConfigV3(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV3();
+  virtual Psana::Uxi::ConfigV3::RoiMode roiEnable() const;
+  virtual const Psana::Uxi::RoiCoord& roiRows() const;
+  virtual const Psana::Uxi::RoiCoord& roiFrames() const;
+  virtual Psana::Uxi::ConfigV3::OscMode oscillator() const;
+  virtual uint32_t width() const;
+  virtual uint32_t height() const;
+  virtual uint32_t numberOfFrames() const;
+  virtual uint32_t numberOFBytesPerPixel() const;
+  virtual uint32_t sensorType() const;
+  virtual ndarray<const uint32_t, 1> timeOn() const;
+  virtual ndarray<const uint32_t, 1> timeOff() const;
+  virtual ndarray<const uint32_t, 1> delay() const;
+  virtual uint32_t readOnlyPots() const;
+  virtual ndarray<const double, 1> pots() const;
+  virtual uint8_t potIsReadOnly(uint8_t i) const;
+  virtual uint8_t potIsTuned(uint8_t i) const;
+  virtual uint32_t numPixelsPerFrame() const;
+  virtual uint32_t numPixels() const;
+  virtual uint32_t frameSize() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  Psana::Uxi::RoiCoord _roiRows;
+  Psana::Uxi::RoiCoord _roiFrames;
+};
+
+
 template <typename Config>
 class FrameV1 : public Psana::Uxi::FrameV1 {
 public:

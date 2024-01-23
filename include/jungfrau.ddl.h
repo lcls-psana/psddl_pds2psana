@@ -112,6 +112,40 @@ private:
 };
 
 
+class ConfigV4 : public Psana::Jungfrau::ConfigV4 {
+public:
+  typedef Pds::Jungfrau::ConfigV4 XtcType;
+  typedef Psana::Jungfrau::ConfigV4 PsanaType;
+  ConfigV4(const boost::shared_ptr<const XtcType>& xtcPtr);
+  virtual ~ConfigV4();
+  virtual uint32_t numberOfModules() const;
+  virtual uint32_t numberOfRowsPerModule() const;
+  virtual uint32_t numberOfColumnsPerModule() const;
+  virtual uint32_t biasVoltage() const;
+  virtual Psana::Jungfrau::ConfigV4::GainMode gainMode() const;
+  virtual Psana::Jungfrau::ConfigV4::SpeedMode speedMode() const;
+  virtual double triggerDelay() const;
+  virtual double exposureTime() const;
+  virtual double exposurePeriod() const;
+  virtual uint16_t vb_ds() const;
+  virtual uint16_t vb_comp() const;
+  virtual uint16_t vb_pixbuf() const;
+  virtual uint16_t vref_ds() const;
+  virtual uint16_t vref_comp() const;
+  virtual uint16_t vref_prech() const;
+  virtual uint16_t vin_com() const;
+  virtual uint16_t vdd_prot() const;
+  virtual const Psana::Jungfrau::ModuleConfigV1& moduleConfig(uint32_t i0) const;
+  virtual uint32_t frameSize() const;
+  virtual uint32_t numPixels() const;
+  virtual std::vector<int> moduleConfig_shape() const;
+  const XtcType& _xtcObj() const { return *m_xtcObj; }
+private:
+  boost::shared_ptr<const XtcType> m_xtcObj;
+  std::vector< psddl_pds2psana::Jungfrau::ModuleConfigV1 > _moduleConfig;
+};
+
+
 class ModuleInfoV1 : public Psana::Jungfrau::ModuleInfoV1 {
 public:
   typedef Pds::Jungfrau::ModuleInfoV1 XtcType;
